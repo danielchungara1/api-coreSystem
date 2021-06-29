@@ -1,0 +1,56 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.tplate'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '13'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('testcontainersVersion', "1.15.3")
+}
+
+dependencies {
+
+	// Web server
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Database
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.flywaydb:flyway-core'
+	runtimeOnly 'org.postgresql:postgresql'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// Mapper
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.4'
+
+	// Testing
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Test Containers
+	testImplementation "org.testcontainers:testcontainers:1.15.3"
+	testImplementation "org.testcontainers:postgresql:1.15.3"
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok:1.18.20'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+}
+
+tasks.named('test', Test) {
+	useJUnitPlatform()
+}
