@@ -7,14 +7,8 @@ CREATE TABLE permission
     created_by   VARCHAR(256) NOT NULL DEFAULT 'SYSTEM',
     created_at   TIMESTAMP    NOT NULL DEFAULT NOW(),
 
-    deleted_by   VARCHAR(256)          DEFAULT NULL,
-    deleted_at   TIMESTAMP             DEFAULT NULL,
-
     updated_last_by   VARCHAR(256)          DEFAULT NULL,
     updated_last_at   TIMESTAMP             DEFAULT NULL,
-
-    fetched_last_by VARCHAR(256) DEFAULT NULL,
-    fetched_last_at TIMESTAMP    DEFAULT NULL,
 
     -- Parametric
     name         VARCHAR(256) NOT NULL,

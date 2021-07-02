@@ -1,6 +1,7 @@
 package com.tplate.coresystem.layers.permission.persistence;
 
-import com.tplate.coresystem.layers.shared.persistence.ParametricModel;
+import com.tplate.coresystem.layers.shared.persistence.IParametric;
+import com.tplate.coresystem.layers.shared.persistence.auditableLinearization.AuditableWithUpdate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,8 +16,18 @@ import javax.persistence.*;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public class PermissionModel extends ParametricModel {
+public class PermissionModel extends AuditableWithUpdate implements IParametric {
 
+    @Column(name = "enabled")
     private Boolean enabled;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "display_name")
+    private String displayName;
+
+    @Column(name = "description")
+    private String description;
 
 }

@@ -21,7 +21,7 @@ class PermissionServiceTest extends TestContainers {
     @Test
     void readAll_withEmptyRepository() {
 
-        final Integer TOTAL_PERMISSIONS =  service.readAll().size();
+        final Integer TOTAL_PERMISSIONS =  service.readEnabled().size();
 
         log.info(">>> Total of permissions {}", TOTAL_PERMISSIONS);
 
@@ -39,7 +39,7 @@ class PermissionServiceTest extends TestContainers {
         );
 
         // Read permissions
-        final Integer TOTAL_PERMISSIONS =  service.readAll().size();
+        final Integer TOTAL_PERMISSIONS =  service.readEnabled().size();
         log.info(">>> Total of permissions {}", TOTAL_PERMISSIONS);
 
         // Assert

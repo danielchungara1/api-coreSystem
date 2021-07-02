@@ -14,9 +14,13 @@ public class PermissionService {
     @Autowired
     private PermissionRepository repository;
 
+    /**
+     * Goal: read all enabled permissions
+     * @return enabled permissions
+     */
     @Transactional(rollbackOn = Exception.class)
-    public List<PermissionModel> readAll() {
-        return this.repository.findAll();
+    public List<PermissionModel> readEnabled() {
+        return this.repository.findAllByEnabledTrue();
     }
 
 }
