@@ -1,4 +1,4 @@
-package com.tplate.coresystem.layers.shared.access;
+package com.tplate.coresystem.shared.access;
 
 public class Endpoints {
 

@@ -1,4 +1,4 @@
-package com.tplate.coresystem.layers.shared.access;
+package com.tplate.coresystem.shared.access;
 
 import lombok.Builder;
 import lombok.Getter;

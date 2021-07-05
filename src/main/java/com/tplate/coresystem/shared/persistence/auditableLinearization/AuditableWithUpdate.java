@@ -1,4 +1,4 @@
-package com.tplate.coresystem.layers.shared.persistence.auditableLinearization;
+package com.tplate.coresystem.shared.persistence.auditableLinearization;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

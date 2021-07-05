@@ -1,4 +1,4 @@
-package com.tplate.coresystem.layers.shared.persistence;
+package com.tplate.coresystem.shared.persistence;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

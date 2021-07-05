@@ -1,9 +1,9 @@
 package com.tplate.coresystem.layers.business;
 
 import com.tplate.coresystem.TestContainers;
-import com.tplate.coresystem.layers.permission.business.PermissionService;
-import com.tplate.coresystem.layers.permission.persistence.PermissionModel;
-import com.tplate.coresystem.layers.permission.persistence.PermissionRepository;
+import com.tplate.coresystem.permission.business.PermissionService;
+import com.tplate.coresystem.permission.persistence.PermissionModel;
+import com.tplate.coresystem.permission.persistence.PermissionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

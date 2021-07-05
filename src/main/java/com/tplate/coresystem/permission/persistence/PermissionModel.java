@@ -1,7 +1,7 @@
-package com.tplate.coresystem.layers.permission.persistence;
+package com.tplate.coresystem.permission.persistence;
 
-import com.tplate.coresystem.layers.shared.persistence.IParametric;
-import com.tplate.coresystem.layers.shared.persistence.auditableLinearization.AuditableWithUpdate;
+import com.tplate.coresystem.shared.persistence.IParametric;
+import com.tplate.coresystem.shared.persistence.auditableLinearization.AuditableWithUpdate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

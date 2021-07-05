@@ -1,6 +1,6 @@
-package com.tplate.coresystem.layers.permission.access;
+package com.tplate.coresystem.permission.access;
 
-import com.tplate.coresystem.layers.shared.persistence.IParametric;
+import com.tplate.coresystem.shared.persistence.IParametric;
 import lombok.Getter;
 import lombok.Setter;
 

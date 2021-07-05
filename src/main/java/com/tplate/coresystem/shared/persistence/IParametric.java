@@ -1,4 +1,4 @@
-package com.tplate.coresystem.layers.shared.persistence;
+package com.tplate.coresystem.shared.persistence;
 
 public interface IParametric {
 

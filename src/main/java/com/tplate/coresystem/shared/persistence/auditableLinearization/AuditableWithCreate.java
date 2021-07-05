@@ -1,6 +1,6 @@
-package com.tplate.coresystem.layers.shared.persistence.auditableLinearization;
+package com.tplate.coresystem.shared.persistence.auditableLinearization;
 
-import com.tplate.coresystem.layers.shared.persistence.BaseModel;
+import com.tplate.coresystem.shared.persistence.BaseModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
