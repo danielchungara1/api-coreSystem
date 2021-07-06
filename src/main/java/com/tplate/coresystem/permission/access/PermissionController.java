@@ -48,10 +48,4 @@ public class PermissionController {
                 .build();
 
     }
-
-    /**
-     * Goal: disable/enable a permission
-     * @return permission updated
-     */
-
 }

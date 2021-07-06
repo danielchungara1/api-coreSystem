@@ -41,6 +41,7 @@ public class PermissionService {
 
         model.setDescription(dto.getDescription());
         model.setDisplayName(dto.getDisplayName());
+        model.setEnabled(dto.getEnabled());
 
         this.validator.validateModel(model);
 

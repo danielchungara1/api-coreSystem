@@ -12,5 +12,5 @@ public class PermissionDtoOut implements IParametric {
     private String name;
     private String description;
     private String displayName;
-
+    private Boolean enabled;
 }
