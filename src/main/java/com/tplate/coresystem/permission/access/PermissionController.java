@@ -16,8 +16,7 @@ public class PermissionController {
     /**
      * Goal: read enabled permissions.
      * Audit fields are hidden.
-     *
-     * @return permissions
+     * @return enabled permissions
      */
     @GetMapping(Endpoints.PERMISSIONS)
     public ResponseDto readEnabled() {

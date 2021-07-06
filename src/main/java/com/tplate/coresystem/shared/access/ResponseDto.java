@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 @Getter
 @Setter
 @Builder
+// Goal: represent a response returned by the API.
 public class ResponseDto {
     private String message;
     private Object data;

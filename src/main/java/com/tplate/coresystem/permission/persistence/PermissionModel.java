@@ -30,6 +30,10 @@ public class PermissionModel extends AuditableWithUpdate implements IParametric 
     @Column(name = "description")
     private String description;
 
+    /**
+     * Goal: check business rule before updating.
+     * Enabled is optional and default value must be true.
+     */
     @PreUpdate
     public void preUpdate() {
         if (this.enabled == null) {

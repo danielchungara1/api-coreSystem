@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CoreSystemApplication {
 
+	// Starting Point of the Application
 	public static void main(String[] args) {
 		SpringApplication.run(CoreSystemApplication.class, args);
 	}

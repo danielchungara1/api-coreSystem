@@ -6,7 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PermissionDtoIn {
+
     private String displayName;
     private String description;
     private Boolean enabled;
+
 }

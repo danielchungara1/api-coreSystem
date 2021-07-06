@@ -8,20 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-/**
- * Validates business rules
- */
 public class ValidatorPermission {
 
     @Autowired
     PermissionRepository repository;
 
     /**
-     * Rules:
-     *  - Description is required and not blank
-     *  - Display name is required and not blank
+     * Business Rules:
+     *  - Description is required
+     *  - Display name is required
      *  - Enabled is optional
-     *  If any validation fails then is throws a business exception.
+     *  If any validation fails is throws a business exception.
      * @param model contains data to validate
      */
     public void validateModel(PermissionModel model) {
