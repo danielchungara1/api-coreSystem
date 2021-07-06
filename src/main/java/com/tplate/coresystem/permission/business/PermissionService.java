@@ -29,7 +29,7 @@ public class PermissionService {
     }
 
     /**
-     * Update a permission by DTO
+     * Goal: Update a permission by DTO
      * @param id of permission to update
      * @param dto contains fields to update
      * @return permission updated
@@ -49,11 +49,15 @@ public class PermissionService {
 
     }
 
+    /**
+     * Goal: fetch model by its primary key (ID)
+     * If not exist throws business exception
+     * @param id primary key
+     * @return model
+     */
     @Transactional
     public PermissionModel getModelById(Long id) {
         return this.repository.findById(id).orElseThrow(() -> new BusinessException("id not exists."));
     }
-
-
 
 }

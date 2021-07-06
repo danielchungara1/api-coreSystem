@@ -4,21 +4,20 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.context.request.WebRequest;
-
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
 @Builder
 public class ErrorDetail {
 
-    private LocalDateTime date;
+    private Date date;
     private String request;
 
     public static Object buildWithRequest(WebRequest request) {
         return
                 ErrorDetail.builder()
-                        .date(LocalDateTime.now())
+                        .date(new Date())
                         .request(request.toString())
                         .build();
     }

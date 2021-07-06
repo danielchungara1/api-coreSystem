@@ -18,10 +18,9 @@ public class ValidatorPermission {
 
     /**
      * Rules:
-     *  - Name is not updatable
      *  - Description is required and not blank
      *  - Display name is required and not blank
-     *  - Enabled is optional, is true by default
+     *  - Enabled is optional
      *  If any validation fails then is throws a business exception.
      * @param model contains data to validate
      */
@@ -32,10 +31,6 @@ public class ValidatorPermission {
 
         if (StringUtil.isEmpty(model.getDisplayName())) {
             throw new BusinessException("displayName is required");
-        }
-
-        if (model.getEnabled() == null) {
-            model.setEnabled(true);
         }
     }
 }

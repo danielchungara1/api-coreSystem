@@ -30,4 +30,11 @@ public class PermissionModel extends AuditableWithUpdate implements IParametric 
     @Column(name = "description")
     private String description;
 
+    @PreUpdate
+    public void preUpdate() {
+        if (this.enabled == null) {
+            this.enabled = true;
+        }
+    }
+
 }
