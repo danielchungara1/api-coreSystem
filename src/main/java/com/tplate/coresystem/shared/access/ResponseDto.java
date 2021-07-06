@@ -22,5 +22,10 @@ public class ResponseDto {
             return this;
         }
 
+        public ResponseDtoBuilder data(Object data){
+            this.data = data;
+            return this;
+        }
+
     }
 }
