@@ -4,6 +4,7 @@ import com.tplate.coresystem.permission.access.PermissionDtoIn;
 import com.tplate.coresystem.permission.persistence.PermissionModel;
 import com.tplate.coresystem.permission.persistence.PermissionRepository;
 import com.tplate.coresystem.shared.business.BusinessException;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +12,14 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Builder
 public class PermissionService {
 
     @Autowired
     private PermissionRepository repository;
 
     @Autowired
-    private ValidatorPermission validator;
+    private PermissionValidator validator;
 
     /**
      * Goal: read all enabled permissions
