@@ -33,7 +33,7 @@ public interface PermissionRepository extends JpaRepository<PermissionModel, Lon
                     WHEN count(e)> 0 THEN true
                     ELSE false
                 END
-            FROM PermissionModel e
+            FROM RoleModel e
             WHERE e.id <> :id
             AND e.name = :name
             """)

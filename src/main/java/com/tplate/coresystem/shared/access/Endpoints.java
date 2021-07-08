@@ -10,5 +10,6 @@ public class Endpoints {
     public static final String BASE_PATH = "/api/v2";
 
     public static final String PERMISSIONS = BASE_PATH + "/permissions";
+    public static final String ROLES = BASE_PATH + "/roles";
 
 }
