@@ -1,8 +1,7 @@
 package com.tplate.coresystem.role.persistence;
 
 import com.tplate.coresystem.permission.persistence.PermissionModel;
-import com.tplate.coresystem.shared.persistence.IParametric;
-import com.tplate.coresystem.shared.persistence.auditableLinearization.AuditableWithDelete;
+import com.tplate.coresystem.shared.persistence.ParametricModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,16 +16,7 @@ import java.util.List;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public class RoleModel extends AuditableWithDelete implements IParametric {
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "display_name")
-    private String displayName;
-
-    @Column(name = "description")
-    private String description;
+public class RoleModel extends ParametricModel {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="permission_role",

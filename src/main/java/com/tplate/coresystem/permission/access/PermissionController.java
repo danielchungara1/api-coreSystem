@@ -14,14 +14,14 @@ public class PermissionController {
     private PermissionService permissionService;
 
     /**
-     * Goal: read enabled permissions.
+     * Goal: read permissions.
      * Audit fields are hidden.
-     * @return enabled permissions
+     * @return permissions
      */
     @GetMapping(Endpoints.PERMISSIONS)
-    public ResponseDto readEnabled() {
+    public ResponseDto readAll() {
 
-        final Object model = this.permissionService.readEnabled();
+        final Object model = this.permissionService.readAll();
 
         return ResponseDto.builder()
                 .message(Messages.FETCHED)

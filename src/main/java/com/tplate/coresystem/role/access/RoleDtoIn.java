@@ -11,6 +11,6 @@ public class RoleDtoIn {
 
     private String displayName;
     private String description;
-    private Boolean name;
+    private String name;
 
 }

@@ -11,6 +11,5 @@ public class PermissionDtoIn {
 
     private String displayName;
     private String description;
-    private Boolean enabled;
 
 }

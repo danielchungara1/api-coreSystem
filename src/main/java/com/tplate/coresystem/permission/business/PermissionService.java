@@ -7,7 +7,6 @@ import com.tplate.coresystem.shared.business.BusinessException;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -22,11 +21,11 @@ public class PermissionService {
     private PermissionValidator validator;
 
     /**
-     * Goal: read all enabled permissions
-     * @return enabled permissions
+     * Goal: read all permissions
+     * @return permissions
      */
     @Transactional(rollbackOn = Exception.class)
-    public List<PermissionModel> readEnabled() {
+    public List<PermissionModel> readAll() {
         return this.repository.findAllByEnabledTrue();
     }
 
@@ -36,14 +35,13 @@ public class PermissionService {
      * @param dto contains fields to update
      * @return permission updated
      */
-
     @Transactional(rollbackOn = Exception.class)
     public PermissionModel updateByDto(Long id, PermissionDtoIn dto) {
+
         PermissionModel model = this.getModelById(id);
 
         model.setDescription(dto.getDescription());
         model.setDisplayName(dto.getDisplayName());
-        model.setEnabled(dto.getEnabled());
 
         this.validator.validateModel(model);
 

@@ -30,4 +30,20 @@ public class RoleController {
 
     }
 
+    /**
+     * Goal: create new role
+     * @param dto contains all necessary fields to create a role
+     * @return role created
+     */
+    @PostMapping(Endpoints.ROLES)
+    public ResponseDto create(@RequestBody RoleDtoIn dto) {
+
+        Object model = this.service.createByDto(dto);
+
+        return ResponseDto.builder()
+                .message(Messages.CREATED)
+                .data(model, RoleDtoOut.class)
+                .build();
+
+    }
 }

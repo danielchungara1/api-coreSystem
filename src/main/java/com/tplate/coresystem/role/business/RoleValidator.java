@@ -1,28 +1,22 @@
 package com.tplate.coresystem.role.business;
 
-import com.tplate.coresystem.permission.persistence.PermissionModel;
+import com.tplate.coresystem.role.persistence.RoleRepository;
 import com.tplate.coresystem.shared.business.BusinessException;
-import com.tplate.coresystem.shared.business.StringUtil;
+import com.tplate.coresystem.shared.business.ParametricValidator;
+import com.tplate.coresystem.shared.persistence.ParametricModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RoleValidator {
+public class RoleValidator extends ParametricValidator{
 
-    /**
-     * Business Rules:
-     *  - Description is required
-     *  - Display name is required
-     *  If any validation fails is throws a business exception.
-     * @param model contains data to validate
-     */
-    public void validateModel(PermissionModel model) {
-        if (StringUtil.isEmpty(model.getDescription())) {
-            throw new BusinessException("description is required");
-        }
+    @Autowired
+    RoleRepository repository;
 
-        if (StringUtil.isEmpty(model.getDisplayName())) {
-            throw new BusinessException("displayName is required");
+    @Override
+    protected void validateNameUniqueness(ParametricModel model) {
+        if (this.repository.existsByName(model.getName())) {
+            throw new BusinessException("name exists");
         }
     }
-
 }
