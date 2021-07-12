@@ -1,15 +1,11 @@
 package com.tplate.coresystem.role.business;
 
-import com.tplate.coresystem.permission.business.PermissionValidator;
-import com.tplate.coresystem.permission.persistence.PermissionModel;
-import com.tplate.coresystem.permission.persistence.PermissionRepository;
+import com.tplate.coresystem.permission.business.PermissionService;
 import com.tplate.coresystem.role.access.RoleDtoIn;
 import com.tplate.coresystem.role.persistence.RoleModel;
 import com.tplate.coresystem.role.persistence.RoleRepository;
-import com.tplate.coresystem.shared.persistence.ParametricModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -21,6 +17,9 @@ public class RoleService {
 
     @Autowired
     private RoleValidator validator;
+
+    @Autowired
+    private PermissionService permissionService;
 
     /**
      * Goal: read all not deleted roles
@@ -46,6 +45,7 @@ public class RoleService {
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .displayName(dto.getDisplayName())
+                .permissions(this.permissionService.getModels(dto.getPermissionIds()))
                 .build();
 
         // Validate model

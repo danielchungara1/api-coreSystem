@@ -28,9 +28,9 @@ public abstract class ParametricValidator {
             throw new BusinessException("displayName is required");
         }
 
-        this.validateNameUniqueness(model);
+        this.validateNameUniqueness(model.getName());
     }
 
-    protected abstract void validateNameUniqueness(ParametricModel model);
+    protected abstract void validateNameUniqueness(String name);
 
 }

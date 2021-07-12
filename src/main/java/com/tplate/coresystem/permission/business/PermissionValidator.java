@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 public class PermissionValidator extends ParametricValidator{
 
     @Override
-    protected void validateNameUniqueness(ParametricModel model) {
+    protected void validateNameUniqueness(String name) {
     }
 }
