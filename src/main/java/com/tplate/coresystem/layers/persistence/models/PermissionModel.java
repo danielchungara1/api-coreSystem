@@ -1,12 +1,14 @@
-package com.tplate.coresystem.permission.persistence;
+package com.tplate.coresystem.layers.persistence.models;
 
 import com.tplate.coresystem.shared.persistence.ParametricModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "permission")

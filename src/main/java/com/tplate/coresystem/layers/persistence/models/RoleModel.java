@@ -1,11 +1,11 @@
-package com.tplate.coresystem.role.persistence;
+package com.tplate.coresystem.layers.persistence.models;
 
-import com.tplate.coresystem.permission.persistence.PermissionModel;
 import com.tplate.coresystem.shared.persistence.ParametricModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
 import javax.persistence.*;
 import java.util.List;
 

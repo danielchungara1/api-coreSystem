@@ -1,10 +1,11 @@
 package com.tplate.coresystem.shared.persistence;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -15,12 +16,12 @@ import javax.persistence.MappedSuperclass;
 public abstract class ParametricModel extends AuditableModel{
 
     @Column(name = "name")
-    private String name;
+    protected String name;
 
     @Column(name = "display_name")
-    private String displayName;
+    protected String displayName;
 
     @Column(name = "description")
-    private String description;
+    protected String description;
 
 }

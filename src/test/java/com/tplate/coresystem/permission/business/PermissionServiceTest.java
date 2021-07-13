@@ -1,8 +1,8 @@
 package com.tplate.coresystem.permission.business;
 
-import com.tplate.coresystem.permission.access.PermissionDtoIn;
-import com.tplate.coresystem.permission.persistence.PermissionModel;
-import com.tplate.coresystem.permission.persistence.PermissionRepository;
+import com.tplate.coresystem.layers.business.services.PermissionService;
+import com.tplate.coresystem.layers.persistence.models.PermissionModel;
+import com.tplate.coresystem.layers.persistence.repositories.PermissionRepository;
 import com.tplate.coresystem.shared.business.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
