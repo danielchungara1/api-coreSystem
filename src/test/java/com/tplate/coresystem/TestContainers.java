@@ -10,7 +10,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @Transactional // Rollback every transaction executed on tests.
-public class TestContainers {
+public abstract class TestContainers {
 
     static final PostgreSQLContainer postgreSQLContainer;
 
