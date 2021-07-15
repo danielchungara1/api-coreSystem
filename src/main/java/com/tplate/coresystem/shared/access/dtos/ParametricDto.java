@@ -1,5 +1,7 @@
-package com.tplate.coresystem.shared.access;
+package com.tplate.coresystem.shared.access.dtos;
 
+import com.tplate.coresystem.shared.access.dtos.BaseDto;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

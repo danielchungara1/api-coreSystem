@@ -1,4 +1,4 @@
-package com.tplate.coresystem.shared.persistence;
+package com.tplate.coresystem.shared.persistence.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import javax.persistence.MappedSuperclass;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public abstract class ParametricModel extends AuditableModel{
+public abstract class ParametricModel extends BaseModel {
 
     @Column(name = "name")
     protected String name;

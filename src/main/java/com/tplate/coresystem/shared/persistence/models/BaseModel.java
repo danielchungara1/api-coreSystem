@@ -1,22 +1,26 @@
-package com.tplate.coresystem.shared.persistence;
+package com.tplate.coresystem.shared.persistence.models;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
+import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SuperBuilder
 @NoArgsConstructor
-public abstract class AuditableModel extends BaseModel {
+public abstract class BaseModel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @EqualsAndHashCode.Include
+    protected Long id;
 
     @Column(name = "created_at")
     protected Date createdAt;
@@ -37,21 +41,23 @@ public abstract class AuditableModel extends BaseModel {
     protected String updatedLastBy;
 
     /**
-     * Before creating the entity, audit information is added.
+     * Before creating, the audit information must be saved.
      */
     @PrePersist
     public void prePersist() {
         this.setCreatedAt(new Date());
         this.setCreatedBy("SYSTEM"); // TODO: Change to real user when spring security is enabled
+
     }
 
     /**
-     * Before updating the entity, audit information is added.
+     * Before updating, the audit information must be saved.
      */
     @PreUpdate
     public void preUpdate() {
         this.setUpdatedLastAt(new Date());
         this.setUpdatedLastBy("SYSTEM"); // TODO: Change to real user when spring security is enabled
+
     }
 
 }

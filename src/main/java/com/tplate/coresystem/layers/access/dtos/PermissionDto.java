@@ -1,13 +1,13 @@
 package com.tplate.coresystem.layers.access.dtos;
 
-import com.tplate.coresystem.shared.access.ParametricDto;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.tplate.coresystem.shared.access.dtos.ParametricDto;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
+@NoArgsConstructor
 public class PermissionDto extends ParametricDto {
 
 }

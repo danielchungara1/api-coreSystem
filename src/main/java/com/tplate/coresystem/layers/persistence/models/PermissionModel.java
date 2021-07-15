@@ -1,6 +1,6 @@
 package com.tplate.coresystem.layers.persistence.models;
 
-import com.tplate.coresystem.shared.persistence.ParametricModel;
+import com.tplate.coresystem.shared.persistence.models.ParametricModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

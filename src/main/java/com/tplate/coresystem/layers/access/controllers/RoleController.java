@@ -2,10 +2,10 @@ package com.tplate.coresystem.layers.access.controllers;
 
 import com.tplate.coresystem.layers.access.dtos.RoleDtoIn;
 import com.tplate.coresystem.layers.access.dtos.RoleDtoOut;
-import com.tplate.coresystem.layers.business.services.RoleService;
+import com.tplate.coresystem.layers.business.RoleService;
 import com.tplate.coresystem.shared.access.Endpoints;
 import com.tplate.coresystem.shared.access.Messages;
-import com.tplate.coresystem.shared.access.ResponseDto;
+import com.tplate.coresystem.shared.access.dtos.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +16,14 @@ public class RoleController {
     private RoleService service;
 
     /**
-     * Goal: Read all roles (not deleted).
+     * Goal: Find all roles (not deleted).
      *
-     * @return all roles (not deleted).
+     * @return roles (not deleted).
      */
     @GetMapping(Endpoints.ROLES)
-    public ResponseDto readNotDeleted() {
+    public ResponseDto findAll() {
 
-        final Object model = this.service.readNotDeleted();
+        final Object model = this.service.findAll();
 
         return ResponseDto.builder()
                 .message(Messages.FETCHED)
@@ -39,7 +39,7 @@ public class RoleController {
      * @return role created.
      */
     @PostMapping(Endpoints.ROLES)
-    public ResponseDto create(@RequestBody RoleDtoIn dto) {
+    public ResponseDto createByDto(@RequestBody RoleDtoIn dto) {
 
         Object model = this.service.createByDto(dto);
 
@@ -58,13 +58,30 @@ public class RoleController {
      * @return role updated
      */
     @PutMapping(Endpoints.ROLES + "/{id}")
-    public ResponseDto update(@RequestBody RoleDtoIn dto, @PathVariable Long id) {
+    public ResponseDto updateByDto(@RequestBody RoleDtoIn dto, @PathVariable Long id) {
 
         Object model = this.service.updateByDto(dto, id);
 
         return ResponseDto.builder()
                 .message(Messages.UPDATED)
                 .data(model, RoleDtoOut.class)
+                .build();
+
+    }
+
+    /**
+     * Goal: Delete role by Id.
+     *
+     * @param id role
+     * @return deleted message
+     */
+    @DeleteMapping(Endpoints.ROLES + "/{id}")
+    public ResponseDto deleteById(@PathVariable Long id) {
+
+        this.service.deleteById(id);
+
+        return ResponseDto.builder()
+                .message(Messages.DELETED)
                 .build();
 
     }

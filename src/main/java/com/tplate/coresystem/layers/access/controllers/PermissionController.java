@@ -1,10 +1,10 @@
 package com.tplate.coresystem.layers.access.controllers;
 
 import com.tplate.coresystem.layers.access.dtos.PermissionDto;
-import com.tplate.coresystem.layers.business.services.PermissionService;
+import com.tplate.coresystem.layers.business.PermissionService;
 import com.tplate.coresystem.shared.access.Endpoints;
 import com.tplate.coresystem.shared.access.Messages;
-import com.tplate.coresystem.shared.access.ResponseDto;
+import com.tplate.coresystem.shared.access.dtos.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +15,14 @@ public class PermissionController {
     private PermissionService permissionService;
 
     /**
-     * Goal: Read all permissions.
+     * Goal: Find all permissions.
      *
-     * @return all permissions
+     * @return all permissions.
      */
     @GetMapping(Endpoints.PERMISSIONS)
-    public ResponseDto readAll() {
+    public ResponseDto findAll() {
 
-        final Object model = this.permissionService.readAll();
+        final Object model = this.permissionService.findAll();
 
         return ResponseDto.builder()
                 .message(Messages.FETCHED)
@@ -32,14 +32,14 @@ public class PermissionController {
     }
 
     /**
-     * Goal: update permission
+     * Goal: Update permission.
      *
-     * @param dto contains updatable fields
-     * @param id  of the permission
-     * @return permission updated
+     * @param dto contains updatable fields.
+     * @param id  permission.
+     * @return permission updated.
      */
     @PutMapping(Endpoints.PERMISSIONS + "/{id}")
-    public ResponseDto update(@PathVariable Long id, @RequestBody PermissionDto dto) {
+    public ResponseDto updateByDto(@PathVariable Long id, @RequestBody PermissionDto dto) {
 
         final Object model = this.permissionService.updateByDto(id, dto);
 

@@ -1,6 +1,7 @@
 package com.tplate.coresystem.shared.access;
 
-import com.tplate.coresystem.shared.business.BusinessException;
+import com.tplate.coresystem.shared.access.dtos.ResponseDto;
+import com.tplate.coresystem.shared.business.exceptions.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;

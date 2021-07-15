@@ -1,9 +1,6 @@
-package com.tplate.coresystem.shared.access;
+package com.tplate.coresystem.shared.access.dtos;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Getter

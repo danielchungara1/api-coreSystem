@@ -1,6 +1,6 @@
 package com.tplate.coresystem.layers.access.dtos;
 
-import com.tplate.coresystem.shared.access.BaseDto;
+import com.tplate.coresystem.shared.access.dtos.BaseDto;
 import lombok.*;
 
 @Getter

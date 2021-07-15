@@ -1,4 +1,4 @@
-package com.tplate.coresystem.shared.access;
+package com.tplate.coresystem.shared.access.dtos;
 
 import lombok.Builder;
 import lombok.Getter;
