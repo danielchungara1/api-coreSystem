@@ -1,9 +1,10 @@
-package com.tplate.coresystem.shared.access;
+package com.tplate.coresystem.shared.access.dtos;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 
 @Getter
 @Setter
@@ -16,7 +17,14 @@ public class ResponseDto {
     // Custom Setter for Builder
     public static class ResponseDtoBuilder {
 
-        private static final ModelMapper modelMapper = new ModelMapper();
+        private static ModelMapper modelMapper;
+
+        public ResponseDtoBuilder() {
+            modelMapper = new ModelMapper();
+            modelMapper.getConfiguration()
+                    .setSkipNullEnabled(true)
+                    .setMatchingStrategy(MatchingStrategies.LOOSE);
+        }
 
         public ResponseDtoBuilder data(Object data, Class dto){
             this.data = modelMapper.map(data, dto);

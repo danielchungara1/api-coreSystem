@@ -1,10 +1,12 @@
 package com.tplate.coresystem.shared.access;
 
-import com.tplate.coresystem.shared.business.BusinessException;
+import com.tplate.coresystem.shared.access.dtos.ResponseDto;
+import com.tplate.coresystem.shared.business.exceptions.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -71,9 +73,9 @@ public class ControllerExceptionHandler {
     }
 
     // URL Not Found
-    @ExceptionHandler(NoHandlerFoundException.class)
+    @ExceptionHandler({NoHandlerFoundException.class, HttpRequestMethodNotSupportedException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseDto notFoundExceptionHandler(NoHandlerFoundException e, WebRequest request) {
+    public ResponseDto notFoundExceptionHandler(Exception e, WebRequest request) {
         log.error(e.getMessage());
         return ResponseDto.builder()
                 .message("Resource not found.")

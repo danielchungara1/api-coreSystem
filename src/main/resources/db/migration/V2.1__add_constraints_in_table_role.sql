@@ -1,0 +1,3 @@
+ALTER TABLE role
+    ADD CONSTRAINT PK_role PRIMARY KEY (id),
+    ADD CONSTRAINT UQ_name_role UNIQUE (name);

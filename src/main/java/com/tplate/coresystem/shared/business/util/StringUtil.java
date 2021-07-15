@@ -1,4 +1,4 @@
-package com.tplate.coresystem.shared.business;
+package com.tplate.coresystem.shared.business.util;
 
 public class StringUtil {
 

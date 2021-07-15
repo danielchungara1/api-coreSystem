@@ -1,4 +1,4 @@
-CREATE TABLE permission
+CREATE TABLE role
 (
     -- Base
     id              BIGSERIAL    NOT NULL,

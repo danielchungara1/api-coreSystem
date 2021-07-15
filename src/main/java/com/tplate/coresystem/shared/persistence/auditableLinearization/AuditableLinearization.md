@@ -1,5 +1,0 @@
-AuditableWithDelete
-        ↓
-AuditableWithUpdate
-        ↓
-AuditableWithCreate

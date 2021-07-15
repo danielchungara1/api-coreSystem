@@ -1,9 +1,10 @@
-package com.tplate.coresystem.permission.access;
+package com.tplate.coresystem.layers.access.controllers;
 
+import com.tplate.coresystem.layers.access.dtos.PermissionDto;
+import com.tplate.coresystem.layers.business.PermissionService;
 import com.tplate.coresystem.shared.access.Endpoints;
-import com.tplate.coresystem.permission.business.PermissionService;
 import com.tplate.coresystem.shared.access.Messages;
-import com.tplate.coresystem.shared.access.ResponseDto;
+import com.tplate.coresystem.shared.access.dtos.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,36 +15,37 @@ public class PermissionController {
     private PermissionService permissionService;
 
     /**
-     * Goal: read enabled permissions.
-     * Audit fields are hidden.
-     * @return enabled permissions
+     * Goal: Find all permissions.
+     *
+     * @return all permissions.
      */
     @GetMapping(Endpoints.PERMISSIONS)
-    public ResponseDto readEnabled() {
+    public ResponseDto findAll() {
 
-        final Object model = this.permissionService.readEnabled();
+        final Object model = this.permissionService.findAll();
 
         return ResponseDto.builder()
                 .message(Messages.FETCHED)
-                .data(model, PermissionDtoOut[].class)
+                .data(model, PermissionDto[].class)
                 .build();
 
     }
 
     /**
-     * Goal: update a permission
-     * @param dto contains updatable fields
-     * @param id of the permission to update
-     * @return permission updated
+     * Goal: Update permission.
+     *
+     * @param dto contains updatable fields.
+     * @param id  permission.
+     * @return permission updated.
      */
     @PutMapping(Endpoints.PERMISSIONS + "/{id}")
-    public ResponseDto update(@PathVariable Long id, @RequestBody PermissionDtoIn dto) {
+    public ResponseDto updateByDto(@PathVariable Long id, @RequestBody PermissionDto dto) {
 
         final Object model = this.permissionService.updateByDto(id, dto);
 
         return ResponseDto.builder()
                 .message(Messages.UPDATED)
-                .data(model, PermissionDtoOut.class)
+                .data(model, PermissionDto.class)
                 .build();
 
     }
