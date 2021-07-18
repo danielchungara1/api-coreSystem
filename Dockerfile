@@ -18,6 +18,12 @@ COPY --from=GRADLE_BUILD /build-workspace/build/libs/core-system-0.0.1-SNAPSHOT.
 CMD ["java", "-jar", "/core-system.jar"]
 
 
+# Webservice Image
 # docker build -t tplate/core-system:1.0-SNAPSHOT .
 # docker run -d -p 8080:8080 --network="host" tplate/core-system:1.0-SNAPSHOT
+
+
+# Postgres Image
+# docker run --name postgresql13_v2 -p 5432:5432 -e POSTGRES_PASSWORD=root -d postgres:13.3-alpine
+# docker start postgresql13_v2
 
