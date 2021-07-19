@@ -1,30 +1,21 @@
-version: "3.7"
+version: "3.3"
 
 services:
-  mysql:
-    image: posgres:13.3
+  db:
+    image: postgres:13.3-alpine
+    ports:
+      - "5433:5432"
     volumes:
-      - ./core-system-volume:/var/lib/postgres
+      - db_coreSystem:/var/lib/postgresql/data
     environment:
-      DB_ROOT_PASSWORD: root
-      DB_DATABASE: coreSystem
-  app:
-    image: danielchungara1/core-system:v1
-    ports: 8080:8081
-    environment:
-      DB_HOST: postgres
-      DB_USER: postgres
-      DB_PASSWORD: root
-      DB_DATABASE: coreSystem
-
-# run docker compose
-# docker-compose up -d
-
-# Network (see containers each other beetwen themselves)
-# docker network create [network-name]
-
-# Run database container with volume
-# docker run -d --network [network-name] --network-alias=[network-alias] -v [volume-name:volume-path] -e [environmet-variable=value] [image-name:version]
-
-# Run app with database container
-# docker run -dp [port-host:port-container] --network [network-name] -e [environment-variable:value] [image-name:version]
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: coreSystem
+  ws:
+    depends_on:
+      - db
+    image: danielchungara1/core-system:v1.0
+    ports:
+    - "8080:8080"
+volumes:
+  db_coreSystem: {}
