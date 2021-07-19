@@ -6,7 +6,9 @@ plugins {
 }
 
 group = 'com.tplate'
-version = '0.0.1-SNAPSHOT'
+project.archivesBaseName='core-system'
+version = 'v1.0'
+
 sourceCompatibility = '16'
 
 configurations {
