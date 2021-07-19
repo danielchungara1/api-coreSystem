@@ -1,5 +1,7 @@
 # the first stage of our build will use a gradle
 FROM gradle:7.1.1-jdk16-hotspot AS GRADLE_BUILD
+
+# all commands are running in working dir
 WORKDIR /build-workspace
 
 # copy the build.gradle and src code to the container
@@ -27,3 +29,6 @@ CMD ["java", "-jar", "/core-system.jar"]
 # docker run --name postgresql13_v2 -p 5432:5432 -e POSTGRES_PASSWORD=root -d postgres:13.3-alpine
 # docker start postgresql13_v2
 
+# Upload image to dockerhub.com
+# docker tag [id_image] [username_docker]/core-system:v1
+# docker push [repository]:[tag]
