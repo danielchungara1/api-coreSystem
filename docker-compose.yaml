@@ -1,11 +1,11 @@
 version: "3.3"
 
 services:
-  ws:
+  api:
     image: danielchungara1/core-system:latest
     build:
       context: .
-    container_name: ws
+    container_name: api
     depends_on:
       - db
     ports:

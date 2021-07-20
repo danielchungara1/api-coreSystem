@@ -52,6 +52,10 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testCompileOnly 'org.projectlombok:lombok:1.18.20'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+	// Swagger
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.7'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-data-rest', version: '1.5.2'
 }
 
 tasks.named('test', Test) {
