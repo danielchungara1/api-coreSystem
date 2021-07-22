@@ -3,8 +3,16 @@ pipeline {
 
     stages {
 		stage ("build") {
+            agent {
+                docker {
+                    image 'openjdk:16-jdk-alpine'
+                    args '-v "$PWD":/app'
+                    reuseNode true
+                }
+            }
         	steps {
             	echo 'Building source code...'
+            	sh './gradlew clean build'
             }
         }
     }
