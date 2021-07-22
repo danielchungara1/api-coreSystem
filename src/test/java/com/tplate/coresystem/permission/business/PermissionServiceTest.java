@@ -47,7 +47,7 @@ class PermissionServiceTest {
         permissionService.validateDtoForUpdate(dto, TEST_ID);
 
         // Assert
-        assertTrue(false); // It means that no exception was thrown.
+        assertTrue(true); // It means that no exception was thrown.
     }
 
     @Test
