@@ -35,5 +35,10 @@ pipeline {
                 sh 'docker build -t danielchungara1/core-system .'
             }
         }
+        stage ('deploy locally') {
+            steps {
+                sh 'docker run -d -p 8090:8080 danielchungara1/core-system'
+            }
+        }
     }
 }
