@@ -11,7 +11,7 @@ pipeline {
                 }
             }
         	steps {
-            	echo 'Building source code...'
+            	echo '>>> Building source code...'
             	sh 'chmod +x ./gradlew'
             	sh './gradlew clean build -x test'
             }
@@ -25,19 +25,21 @@ pipeline {
                 }
             }
             steps {
-                echo 'Running tests...'
+                echo '>>> Running tests...'
                 sh 'chmod +x ./gradlew'
                 sh './gradlew test'
             }
         }
         stage ('build docker image') {
             steps {
+                echo '>>> Building image...'
                 sh 'docker build -t danielchungara1/core-system .'
             }
         }
-        stage ('deploy locally') {
+        stage ('deploy App & DB locally') {
             steps {
-                sh 'docker run -d -p 8090:8080 danielchungara1/core-system'
+                echo '>>> Deploying App & DB...'
+                sh 'docker-compose up -d --build'
             }
         }
     }
