@@ -12,6 +12,7 @@ pipeline {
             }
         	steps {
             	echo 'Building source code...'
+            	sh 'chmod +x ./gradlew'
             	sh './gradlew clean build'
             }
         }
