@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-		stage ("build") {
+		stage ('build source code') {
             agent {
                 docker {
                     image 'openjdk:16-jdk-alpine'
@@ -16,7 +16,7 @@ pipeline {
             	sh './gradlew clean build -x test'
             }
         }
-        stage ("test") {
+        stage ('run tests') {
             agent {
                 docker {
                     image 'openjdk:16-jdk-alpine'
@@ -28,6 +28,11 @@ pipeline {
                 echo 'Running tests...'
                 sh 'chmod +x ./gradlew'
                 sh './gradlew test'
+            }
+        }
+        stage ('build docker image') {
+            steps {
+                sh 'docker build -t danielchungara1/core-system .'
             }
         }
     }
