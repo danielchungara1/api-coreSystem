@@ -2,8 +2,8 @@
 # Building
 #************************************************************
 
-# Add Image based on Gradle7 & JDK16
-FROM gradle:7.1.1-jdk16-hotspot AS GRADLE_BUILD
+# Add Image based on JDK16
+FROM openjdk:16-jdk-alpine AS GRADLE_BUILD
 
 # Set working directory
 WORKDIR /building-workspace
@@ -12,14 +12,12 @@ WORKDIR /building-workspace
 COPY ./ ./
 
 # Build project
-RUN gradle clean build -x test
+RUN chmod +x ./gradlew
+RUN ./gradlew clean build -x test
 
 #************************************************************
 # Executing
 #************************************************************
-
-# Add Image based on OpenJDK16 & Alpine
-FROM openjdk:16-jdk-alpine
 
 # Copy only the artifacts we need from the first stage and discard the rest
 COPY --from=GRADLE_BUILD /building-workspace/build/libs/core-system-v1.0.jar /core-system.jar
