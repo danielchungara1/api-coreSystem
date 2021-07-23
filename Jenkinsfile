@@ -1,11 +1,10 @@
 pipeline {
     agent any
+
     environment {
-        hostingImage = "https://registry.hub.docker.com"
         nameImage = "danielchungara1/core-system"
-        hostCredentials = 'dockerhub_credentials'
-        dockerImage = ''
     }
+
     stages {
 		stage ('build source code') {
             agent {
