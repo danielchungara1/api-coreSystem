@@ -47,7 +47,7 @@ pipeline {
             steps {
                 echo '>>> Uploading image...'
                 script {
-                    docker.withRegistry('hostingImage', 'dockerhub_credentials') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_credentials') {
                        dockerImage.push()
                     }
                 }
