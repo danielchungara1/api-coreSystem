@@ -1,6 +1,11 @@
 pipeline {
     agent any
-
+    environment {
+        hostingImage = "https://registry.hub.docker.com"
+        nameImage = "danielchungara1/core-system"
+        hostCredentials = 'dockerhub_credentials'
+        dockerImage = ''
+    }
     stages {
 		stage ('build source code') {
             agent {
@@ -33,13 +38,19 @@ pipeline {
         stage ('build docker image') {
             steps {
                 echo '>>> Building image...'
-                sh 'docker build -t danielchungara1/core-system .'
+                script {
+                   dockerImage = docker.build nameImage
+                }
             }
         }
-        stage ('deploy App & DB locally') {
+        stage ('push image on dockerhub') {
             steps {
-                echo '>>> Deploying App & DB...'
-                sh 'docker-compose up -d --build'
+                echo '>>> Uploading image...'
+                script {
+                    docker.withRegistry('hostingImage', 'dockerhub_credentials') {
+                       dockerImage.push()
+                    }
+                }
             }
         }
     }
