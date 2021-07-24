@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        tagImage = "danielchungara1/core-system"
+        tagImage = "core-system"
     }
 
     stages {
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 echo '>>> Uploading image...'
                 script {
-                    docker.withRegistry("public.ecr.aws/b3v5q8o0", "ecr:us-east-1:aws_credentials") {
+                    docker.withRegistry("597217115475.dkr.ecr.us-east-2.amazonaws.com", "ecr:us-east-2:aws_credentials") {
                       docker.image("core-system").push()
                     }
                 }
