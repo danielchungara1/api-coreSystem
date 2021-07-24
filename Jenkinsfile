@@ -46,7 +46,7 @@ pipeline {
             steps {
                 echo '>>> Uploading image...'
                 script {
-                    docker.withRegistry("597217115475.dkr.ecr.us-east-2.amazonaws.com", "ecr:us-east-2:aws_credentials") {
+                    docker.withRegistry("https://597217115475.dkr.ecr.us-east-2.amazonaws.com", "ecr:us-east-2:aws_credentials") {
                       docker.image("core-system").push()
                     }
                 }
