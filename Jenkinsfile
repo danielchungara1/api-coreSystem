@@ -1,4 +1,6 @@
+ /* Declarative Pipeline */
 pipeline {
+
     agent any
 
     environment {
@@ -52,14 +54,27 @@ pipeline {
                 }
             }
         }
-        stage ('start/reload services') {
+        stage ('start services') {
             steps {
                 echo '>>> Starting services...'
-                sshagent (credentials: ['rootAWS_credentials']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 cd /home/ubuntu/api-coreSystem && git pull'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 597217115475.dkr.ecr.us-east-2.amazonaws.com'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 cd /home/ubuntu/api-coreSystem && docker-compose pull'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 cd /home/ubuntu/api-coreSystem && docker-compose up -d'
+                def remote = [:]
+                remote.name = "ec2-3-135-182-125.us-east-2.compute.amazonaws.com"
+                remote.host = "3.135.182.125"
+                remote.allowAnyHosts = true
+
+                node {
+                    withCredentials([sshUserPrivateKey(credentialsId: 'rootAWS_credentials', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
+                        remote.user = userName
+                        remote.identityFile = identity
+                        stage("SSH Steps Rocks!") {
+                            writeFile file: 'abc.sh', text: 'ls'
+                            sshCommand remote: remote, command: 'for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done'
+                            sshPut remote: remote, from: 'abc.sh', into: '.'
+                            sshGet remote: remote, from: 'abc.sh', into: 'bac.sh', override: true
+                            sshScript remote: remote, script: 'abc.sh'
+                            sshRemove remote: remote, path: 'abc.sh'
+                        }
+                    }
                 }
             }
         }
