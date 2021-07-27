@@ -56,11 +56,10 @@ pipeline {
             steps {
                 echo '>>> Starting services...'
                 sshagent (credentials: ['rootAWS_credentials']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 cd /home/ubuntu/api-coreSystem'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 git pull'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 cd /home/ubuntu/api-coreSystem && git pull'
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 597217115475.dkr.ecr.us-east-2.amazonaws.com'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 docker-compose pull'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 docker-compose up -d'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 cd /home/ubuntu/api-coreSystem && docker-compose pull'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 cd /home/ubuntu/api-coreSystem && docker-compose up -d'
                 }
             }
         }
