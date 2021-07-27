@@ -62,8 +62,8 @@ pipeline {
                         usernameVariable: 'sshUser'
                     )]) {
                         def remote = [:];
-                        remote.name = 'docker-host';
-                        remote.host = '18.191.91.155';
+                        remote.name = 'ec2-3-135-182-125.us-east-2.compute.amazonaws.com';
+                        remote.host = '3.135.182.125';
                         remote.user = sshUser;
                         remote.identifyFile = sshKey;
                         remote.allowAnyHosts = true;
