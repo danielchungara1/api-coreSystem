@@ -54,11 +54,11 @@ pipeline {
 //                 }
 //             }
 //         }
-//         stage ('start services') {
-//             steps {
-//                 echo '>>> Starting services...'
-//             }
-//         }
+        stage ('start services') {
+            steps {
+                echo '>>> Starting services...'
+            }
+        }
     }
 }
 
