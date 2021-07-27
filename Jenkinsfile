@@ -56,7 +56,7 @@ pipeline {
             steps {
                 echo '>>> Starting services...'
                 sshagent (credentials: ['rootAWS_credentials']) {
-                    sh 'ssh ubuntu@3.135.182.125 cd ~/api-coreSystem'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.135.182.125 cd ~/api-coreSystem'
                 }
             }
         }
