@@ -55,12 +55,9 @@ pipeline {
         stage ('start/reload services') {
             steps {
                 echo '>>> Starting services...'
-                steps {
-                    echo '>>> Starting services...'
-                    sshagent (credentials: ['rootAWS_credentials']) {
-                        sh 'ssh ubuntu@3.135.182.125 cd ~/api-coreSystem"'
-                      }
-                }
+                sshagent (credentials: ['rootAWS_credentials']) {
+                    sh 'ssh ubuntu@3.135.182.125 cd ~/api-coreSystem"'
+                  }
             }
         }
     }
