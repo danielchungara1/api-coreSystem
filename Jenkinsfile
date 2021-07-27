@@ -55,25 +55,11 @@ pipeline {
         stage ('start/reload services') {
             steps {
                 echo '>>> Starting services...'
-                script {
-                        withCredentials([sshUserPrivateKey(
-                        credentialsId: "rootAWS_credentials",
-                        keyFileVariable: 'sshKey',
-                        usernameVariable: 'sshUser'
-                    )]) {
-                        def remote = [:];
-                        remote.name = 'ec2-3-135-182-125.us-east-2.compute.amazonaws.com';
-                        remote.host = '3.135.182.125';
-                        remote.user = sshUser;
-                        remote.identifyFile = sshKey;
-                        remote.allowAnyHosts = true;
-
-                        sshCommand remote: remote, command: "cd ~/api-coreSystem"
-                        sshCommand remote: remote, command: "git pull"
-                        sshCommand remote: remote, command: "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 597217115475.dkr.ecr.us-east-2.amazonaws.com"
-                        sshCommand remote: remote, command: "docker-compose pull"
-                        sshCommand remote: remote, command: "docker-compose up -d"
-                    }
+                steps {
+                    echo '>>> Starting services...'
+                    sshagent (credentials: ['rootAWS_credentials']) {
+                        sh 'ssh ubuntu@3.135.182.125 cd ~/api-coreSystem"'
+                      }
                 }
             }
         }
