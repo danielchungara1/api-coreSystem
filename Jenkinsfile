@@ -57,26 +57,27 @@ pipeline {
         stage ('start services') {
             steps {
                 echo '>>> Starting services...'
-                def remote = [:]
-                remote.name = "ec2-3-135-182-125.us-east-2.compute.amazonaws.com"
-                remote.host = "3.135.182.125"
-                remote.allowAnyHosts = true
-
-                node {
-                    withCredentials([sshUserPrivateKey(credentialsId: 'rootAWS_credentials', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
-                        remote.user = userName
-                        remote.identityFile = identity
-                        stage("SSH Steps Rocks!") {
-                            writeFile file: 'abc.sh', text: 'ls'
-                            sshCommand remote: remote, command: 'for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done'
-                            sshPut remote: remote, from: 'abc.sh', into: '.'
-                            sshGet remote: remote, from: 'abc.sh', into: 'bac.sh', override: true
-                            sshScript remote: remote, script: 'abc.sh'
-                            sshRemove remote: remote, path: 'abc.sh'
-                        }
-                    }
-                }
             }
+        }
+    }
+}
+
+def remote = [:]
+remote.name = "ec2-3-135-182-125.us-east-2.compute.amazonaws.com"
+remote.host = "3.135.182.125"
+remote.allowAnyHosts = true
+
+node {
+    withCredentials([sshUserPrivateKey(credentialsId: 'rootAWS_credentials', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
+        remote.user = userName
+        remote.identityFile = identity
+        stage("SSH Steps Rocks!") {
+            writeFile file: 'abc.sh', text: 'ls'
+            sshCommand remote: remote, command: 'for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done'
+            sshPut remote: remote, from: 'abc.sh', into: '.'
+            sshGet remote: remote, from: 'abc.sh', into: 'bac.sh', override: true
+            sshScript remote: remote, script: 'abc.sh'
+            sshRemove remote: remote, path: 'abc.sh'
         }
     }
 }
