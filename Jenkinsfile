@@ -71,6 +71,7 @@ node {
             sshCommand remote: remote, command: 'cd /home/ubuntu/api-coreSystem/ && git pull'
             sshCommand remote: remote, command: 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 597217115475.dkr.ecr.us-east-2.amazonaws.com'
             sshCommand remote: remote, command: 'cd /home/ubuntu/api-coreSystem/ && docker-compose pull && docker-compose up -d'
+            sshCommand remote: remote, command: 'docker image prune -f'
         }
     }
 }
