@@ -40,7 +40,7 @@ pipeline {
             steps {
                 echo '>>> Building image...'
                 script {
-                   dockerImage = docker.build(tagImage, "--rm=true .")
+                   dockerImage = docker.build(tagImage, "--no-cache --rm --force-rm  .")
                 }
             }
         }
