@@ -3,13 +3,14 @@ package com.tplate.coresystem.shared.business.services;
 import com.tplate.coresystem.shared.business.exceptions.BusinessException;
 import com.tplate.coresystem.shared.persistence.models.BaseModel;
 import com.tplate.coresystem.shared.persistence.repositories.BaseRepository;
-import com.tplate.coresystem.shared.persistence.repositories.ParametricRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 public abstract class BaseService<R extends BaseRepository> {
 
     @Autowired
@@ -27,6 +28,8 @@ public abstract class BaseService<R extends BaseRepository> {
         this.idMustExist(id);
 
         this.repository.deleteById(id, new Date(), "System");
+
+        log.info(">>> Deleting entity with id {}", id);
 
     }
 
