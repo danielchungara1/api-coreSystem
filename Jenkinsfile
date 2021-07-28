@@ -12,7 +12,7 @@ pipeline {
             agent {
                 docker {
                     image 'openjdk:16-jdk-alpine'
-                    args '-u root:Sudo -v "$PWD":/app'
+                    args '-u root -v "$PWD":/app'
                     reuseNode true
                 }
             }
