@@ -8,34 +8,34 @@ pipeline {
     }
 
     stages {
-		stage ('build source code') {
-            agent {
-                docker {
-                    image 'openjdk:16-jdk-alpine'
-                    args '-u root -v "$PWD":/app'
-                    reuseNode true
-                }
-            }
-        	steps {
-            	echo '>>> Building source code...'
-            	sh 'chmod +x ./gradlew'
-            	sh './gradlew clean build -x test'
-            }
-        }
-        stage ('run tests') {
-            agent {
-                docker {
-                    image 'openjdk:16-jdk-alpine'
-                    args '-u root -v "$PWD":/app'
-                    reuseNode true
-                }
-            }
-            steps {
-                echo '>>> Running tests...'
-                sh 'chmod +x ./gradlew'
-                sh './gradlew test'
-            }
-        }
+// 		stage ('build source code') {
+//             agent {
+//                 docker {
+//                     image 'openjdk:16-jdk-alpine'
+//                     args '-u root -v "$PWD":/app'
+//                     reuseNode true
+//                 }
+//             }
+//         	steps {
+//             	echo '>>> Building source code...'
+//             	sh 'chmod +x ./gradlew'
+//             	sh './gradlew clean build -x test'
+//             }
+//         }
+//         stage ('run tests') {
+//             agent {
+//                 docker {
+//                     image 'openjdk:16-jdk-alpine'
+//                     args '-u root -v "$PWD":/app'
+//                     reuseNode true
+//                 }
+//             }
+//             steps {
+//                 echo '>>> Running tests...'
+//                 sh 'chmod +x ./gradlew'
+//                 sh './gradlew test'
+//             }
+//         }
         stage ('build docker image') {
             steps {
                 echo '>>> Building image...'
