@@ -53,6 +53,7 @@ pipeline {
                       docker.image("core-system").push()
                     }
                 }
+                sh 'docker image prune -f'
             }
         }
     }
