@@ -40,8 +40,9 @@ pipeline {
             steps {
                 echo '>>> Building image...'
                 script {
-                   dockerImage = docker.build(tagImage, "--no-cache --rm --force-rm  .")
+                   dockerImage = docker.build(tagImage)
                 }
+                sh 'docker image prune -f'
             }
         }
 //         stage ('push image on aws registry') {
