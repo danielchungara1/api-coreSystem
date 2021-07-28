@@ -40,7 +40,7 @@ pipeline {
             steps {
                 echo '>>> Building image...'
                 script {
-                   dockerImage = docker.build(tagImage, "--force-rm .")
+                   dockerImage = docker.build(tagImage, "--rm .")
                 }
             }
         }
