@@ -1,6 +1,3 @@
-# Synchronous API REST
+# CORE SYSTEM - API REST
 
-## Start App + DB
-- docker-compose up
-
-## Deploy AWS
+![](https://github.com/danielchungara1/api-coreSystem/workflows/tests/badge.svg)
