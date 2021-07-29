@@ -1,3 +1,3 @@
 # CORE SYSTEM - API REST
 
-![](https://github.com/danielchungara1/api-coreSystem/workflows/tests/badge.svg)
+![example workflow](https://github.com/danielchungara1/api-coreSystem/actions/workflows/gradle.yml/badge.svg)
