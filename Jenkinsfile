@@ -1,12 +1,20 @@
+ /* Declarative Pipeline */
 pipeline {
+
     agent any
+
+    environment {
+        nameImage = "core-system"
+        versionImage = "latest"
+        dockerImage = ''
+    }
 
     stages {
 		stage ('build source code') {
             agent {
                 docker {
                     image 'openjdk:16-jdk-alpine'
-                    args '-v "$PWD":/app'
+                    args '-u root -v "$PWD":/app'
                     reuseNode true
                 }
             }
@@ -20,7 +28,7 @@ pipeline {
             agent {
                 docker {
                     image 'openjdk:16-jdk-alpine'
-                    args '-v "$PWD":/app'
+                    args '-u root -v "$PWD":/app'
                     reuseNode true
                 }
             }
@@ -33,14 +41,40 @@ pipeline {
         stage ('build docker image') {
             steps {
                 echo '>>> Building image...'
-                sh 'docker build -t danielchungara1/core-system .'
+                script {
+                   dockerImage = docker.build nameImage + ":$versionImage"
+                }
+                sh 'docker image prune -f'
             }
         }
-        stage ('deploy App & DB locally') {
+        stage ('push image on aws registry') {
             steps {
-                echo '>>> Deploying App & DB...'
-                sh 'docker-compose up -d --build'
+                echo '>>> Uploading image...'
+                script {
+                    docker.withRegistry("https://597217115475.dkr.ecr.us-east-2.amazonaws.com", "ecr:us-east-2:aws_credentials") {
+                      dockerImage.push()
+                    }
+                }
+                sh 'docker image prune -f'
             }
+        }
+    }
+}
+
+def remote = [:]
+remote.name = "ec2-3-135-182-125.us-east-2.compute.amazonaws.com"
+remote.host = "3.14.172.153"
+remote.allowAnyHosts = true
+remote.user= "ubuntu"
+
+node {
+    withCredentials([sshUserPrivateKey(credentialsId: 'aws_credentialsPrivateKey', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: '')]) {
+        remote.identityFile = identity
+        stage("start services") {
+            sshCommand remote: remote, command: 'cd /home/ubuntu/api-coreSystem/ && git pull'
+            sshCommand remote: remote, command: 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 597217115475.dkr.ecr.us-east-2.amazonaws.com'
+            sshCommand remote: remote, command: 'cd /home/ubuntu/api-coreSystem/ && docker-compose pull && docker-compose up -d'
+            sshCommand remote: remote, command: 'docker image prune -f'
         }
     }
 }

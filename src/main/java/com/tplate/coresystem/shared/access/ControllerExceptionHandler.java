@@ -88,6 +88,7 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseDto allExceptionHandler(Exception e , WebRequest request) {
         e.printStackTrace();
+        log.error(">>> Internal Server Error {}.", e.getMessage());
         return ResponseDto.builder()
                 .message("Unexpected Error.")
                 .data(ErrorDetail.buildWithRequest(request))

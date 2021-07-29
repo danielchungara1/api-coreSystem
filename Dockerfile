@@ -12,7 +12,7 @@ WORKDIR /building-workspace
 COPY ./ ./
 
 # Build project
-RUN gradle assemble
+RUN gradle build -x test
 
 #************************************************************
 # Executing
