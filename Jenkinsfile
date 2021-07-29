@@ -63,10 +63,10 @@ def remote = [:]
 remote.name = "ec2-3-135-182-125.us-east-2.compute.amazonaws.com"
 remote.host = "3.14.172.153"
 remote.allowAnyHosts = true
+remote.user= "ubuntu"
 
 node {
-    withCredentials([sshUserPrivateKey(credentialsId: 'rootAWS_credentials', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
-        remote.user = userName
+    withCredentials([sshUserPrivateKey(credentialsId: 'aws_credentialsPrivateKey', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: '')]) {
         remote.identityFile = identity
         stage("start services") {
             sshCommand remote: remote, command: 'cd /home/ubuntu/api-coreSystem/ && git pull'
