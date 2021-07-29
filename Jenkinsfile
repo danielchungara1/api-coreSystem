@@ -5,6 +5,7 @@ pipeline {
 
     environment {
         nameImage = "core-system"
+        versionImage = "latest"
         dockerImage = ''
     }
 
@@ -41,7 +42,7 @@ pipeline {
             steps {
                 echo '>>> Building image...'
                 script {
-                   dockerImage = docker.build nameImage + ":$BUILD_NUMBER"
+                   dockerImage = docker.build nameImage + ":$versionImage"
                 }
                 sh 'docker image prune -f'
             }
@@ -55,7 +56,6 @@ pipeline {
                     }
                 }
                 sh 'docker image prune -f'
-                sh "docker rmi $nameImage:$BUILD_NUMBER"
             }
         }
     }
