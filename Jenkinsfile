@@ -4,7 +4,8 @@ pipeline {
     agent any
 
     environment {
-        tagImage = "core-system"
+        nameImage = "core-system"
+        dockerImage = ''
     }
 
     stages {
@@ -40,7 +41,7 @@ pipeline {
             steps {
                 echo '>>> Building image...'
                 script {
-                   dockerImage = docker.build(tagImage)
+                   dockerImage = docker.build nameImage + ":$BUILD_NUMBER"
                 }
                 sh 'docker image prune -f'
             }
@@ -50,10 +51,11 @@ pipeline {
                 echo '>>> Uploading image...'
                 script {
                     docker.withRegistry("https://597217115475.dkr.ecr.us-east-2.amazonaws.com", "ecr:us-east-2:aws_credentials") {
-                      docker.image("core-system").push()
+                      dockerImage.push()
                     }
                 }
                 sh 'docker image prune -f'
+                sh "docker rmi $nameImage:$BUILD_NUMBER"
             }
         }
     }
