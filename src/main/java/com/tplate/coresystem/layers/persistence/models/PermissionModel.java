@@ -1,14 +1,13 @@
 package com.tplate.coresystem.layers.persistence.models;
 
-import com.tplate.coresystem.shared.persistence.models.ParametricModel;
+import com.tplate.coresystem.shared.persistence.models.BaseModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "permission")
@@ -17,6 +16,15 @@ import javax.persistence.Table;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public class PermissionModel extends ParametricModel {
+public class PermissionModel extends BaseModel {
+
+    @Column(name = "name")
+    protected String name;
+
+    @Column(name = "description")
+    protected String description;
+
+    @Column(name = "display_name")
+    protected String displayName;
 
 }
