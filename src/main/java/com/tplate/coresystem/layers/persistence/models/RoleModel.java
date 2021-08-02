@@ -1,6 +1,6 @@
 package com.tplate.coresystem.layers.persistence.models;
 
-import com.tplate.coresystem.shared.persistence.models.ParametricModel;
+import com.tplate.coresystem.shared.persistence.models.BaseModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +16,16 @@ import java.util.List;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public class RoleModel extends ParametricModel {
+public class RoleModel extends BaseModel {
+
+    @Column(name = "name")
+    protected String name;
+
+    @Column(name = "description")
+    protected String description;
+
+    @Column(name = "display_name")
+    protected String displayName;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="permission_role",

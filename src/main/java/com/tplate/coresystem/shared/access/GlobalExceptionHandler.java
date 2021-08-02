@@ -20,7 +20,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @Controller
 @ResponseBody
 @Slf4j
-public class ControllerExceptionHandler {
+public class GlobalExceptionHandler {
 
     // Business Runtime Exceptions
     @ExceptionHandler({

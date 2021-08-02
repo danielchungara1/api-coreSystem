@@ -1,125 +1,108 @@
 package com.tplate.coresystem.layers.business;
 
-import com.tplate.coresystem.layers.access.dtos.RoleDtoIn;
-import com.tplate.coresystem.layers.persistence.models.PermissionModel;
+import com.tplate.coresystem.layers.access.dtos.RoleDto;
 import com.tplate.coresystem.layers.persistence.models.RoleModel;
+import com.tplate.coresystem.layers.persistence.repositories.PermissionRepository;
 import com.tplate.coresystem.layers.persistence.repositories.RoleRepository;
-import com.tplate.coresystem.shared.business.services.ParametricService;
+import com.tplate.coresystem.shared.business.exceptions.BusinessException;
+import com.tplate.coresystem.shared.business.services.BaseService;
+import com.tplate.coresystem.shared.business.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class RoleService extends ParametricService<RoleRepository> {
+public class RoleService extends BaseService<RoleRepository, RoleModel, RoleDto> {
 
     @Autowired
-    private PermissionService permissionService;
+    protected PermissionRepository permissionRepository;
 
-    /**
-     * Goal: Find all roles (not deleted)
-     *
-     * @return roles (not deleted)
-     */
+    @Override
     @Transactional(rollbackOn = Exception.class)
-    public List<RoleModel> findAll() {
-        return this.repository.findAll();
+    public void create(RoleDto dto) {
+
+        /*********************************************************
+         * Validations
+         ********************************************************/
+        if (StringUtil.isEmpty(dto.getName())) {
+            throw new BusinessException("name is required");
+        }
+
+        if (StringUtil.isEmpty(dto.getDescription())) {
+            throw new BusinessException("description is required");
+        }
+
+        if (StringUtil.isEmpty(dto.getDisplayName())) {
+            throw new BusinessException("displayName is required");
+        }
+
+        if (this.repository.existsByName(dto.getName())) {
+            throw new BusinessException("name exists");
+        }
+
+        dto.getPermissionIds().stream().forEach(idPermission -> {
+            if (!this.permissionRepository.existsById(idPermission)) {
+                throw new BusinessException("permission id %s not exist".formatted(idPermission));
+            }
+        });
+
+        /*********************************************************
+         * Save
+         ********************************************************/
+        super.repository.save(
+                RoleModel.builder()
+                        .name(dto.getName())
+                        .description(dto.getDescription())
+                        .displayName(dto.getDisplayName())
+                        .permissions(this.permissionRepository.findAllById(dto.getPermissionIds()))
+                        .build()
+        );
+
     }
 
-    /**
-     * Goal: Create role (runs validations over dto).
-     *
-     * @param dto contains all fields to create a new role.
-     * @return role created.
-     */
+    @Override
     @Transactional(rollbackOn = Exception.class)
-    public RoleModel createByDto(RoleDtoIn dto) {
+    public void update(RoleDto dto, Long id) {
+        /*********************************************************
+         * Validations
+         ********************************************************/
+        if (!this.repository.existsById(id)) {
+            throw new BusinessException("role id %s not exist".formatted(id));
+        }
 
-        this.validate(dto);
+        if (StringUtil.isEmpty(dto.getName())) {
+            throw new BusinessException("name is required");
+        }
 
-        RoleModel model = new RoleModel();
+        if (StringUtil.isEmpty(dto.getDescription())) {
+            throw new BusinessException("description is required");
+        }
 
-        return this.saveOrUpdate(dto, model);
-    }
+        if (StringUtil.isEmpty(dto.getDisplayName())) {
+            throw new BusinessException("displayName is required");
+        }
 
-    /**
-     * Goal: Update role by Dto and Id. (Apply validations over dto and id)
-     *
-     * @param dto contains all fields to update.
-     * @param id  role.
-     * @return role updated.
-     */
-    @Transactional(rollbackOn = Exception.class)
-    public RoleModel updateByDto(RoleDtoIn dto, Long id) {
+        if (this.repository.existsByNameExcludingId(dto.getName(), id)) {
+            throw new BusinessException("name exists");
+        }
 
-        this.validate(dto, id);
+        dto.getPermissionIds().stream().forEach(idPermission -> {
+            if (!this.permissionRepository.existsById(idPermission)) {
+                throw new BusinessException("permission id %s not exist".formatted(idPermission));
+            }
+        });
 
-        return this.saveOrUpdate(dto, this.repository.getById(id));
-
-    }
-
-    /**
-     * Goal: Save or Update role.
-     *
-     * @param dto   contains all fields for update/create. All must be validated!
-     * @param model to update/create.
-     * @return model updated or created.
-     */
-    private RoleModel saveOrUpdate(RoleDtoIn dto, RoleModel model) {
-
+        /*********************************************************
+         * Save
+         ********************************************************/
+        RoleModel model = repository.getById(id);
         model.setName(dto.getName());
         model.setDescription(dto.getDescription());
         model.setDisplayName(dto.getDisplayName());
+        model.setPermissions(this.permissionRepository.findAllById(dto.getPermissionIds()));
 
-        model.setPermissions(
-                dto.getPermissionIds()
-                        .stream()
-                        .map(pId -> (PermissionModel)this.permissionService.getById(pId))
-                        .collect(Collectors.toList())
-        );
-
-        return this.repository.save(model);
-
-    }
-
-    /**
-     * Goal: apply business rules (for create role)
-     * - description is required
-     * - displayName is required
-     * - name is required and unique
-     * - permissions are optional, if there are permissions check all ids.
-     *
-     * @param dto contains fields to validate.
-     */
-    public void validate(RoleDtoIn dto) {
-
-        super.descriptionIsRequired(dto.getDescription());
-        super.displayNameIsRequired(dto.getDisplayName());
-        super.nameIsRequiredAndUnique(dto.getName());
-
-        this.permissionService.idListMustExist(dto.getPermissionIds());
-    }
-
-    /**
-     * Goal: apply business rules (for update role)
-     * - description is required
-     * - displayName is required
-     * - name is required and unique
-     * - permissions are optional, if there are permissions check all ids.
-     * - Obs: When updating is possible send the same name.
-     *
-     * @param dto contains fields to validate.
-     * @param id  role
-     */
-    public void validate(RoleDtoIn dto, Long id) {
-
-        super.descriptionIsRequired(dto.getDescription());
-        super.displayNameIsRequired(dto.getDisplayName());
-        super.nameIsRequiredAndUnique(dto.getName(), id);
-        super.idMustExist(id);
-
-        this.permissionService.idListMustExist(dto.getPermissionIds());
+        super.repository.save( model );
     }
 
 }

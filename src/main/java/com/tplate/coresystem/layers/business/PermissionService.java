@@ -3,59 +3,28 @@ package com.tplate.coresystem.layers.business;
 import com.tplate.coresystem.layers.access.dtos.PermissionDto;
 import com.tplate.coresystem.layers.persistence.models.PermissionModel;
 import com.tplate.coresystem.layers.persistence.repositories.PermissionRepository;
-import com.tplate.coresystem.shared.access.dtos.ParametricDto;
-import com.tplate.coresystem.shared.business.services.ParametricService;
+import com.tplate.coresystem.shared.business.exceptions.BusinessException;
+import com.tplate.coresystem.shared.business.services.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 @Service
 @Slf4j
-public class PermissionService extends ParametricService<PermissionRepository> {
+public class PermissionService extends BaseService <PermissionRepository, PermissionModel, PermissionDto> {
 
-    /**
-     * Goal: Update permission by DTO and Id.
-     *
-     * @param id  of permission.
-     * @param dto with updatable fields.
-     * @return permission updated
-     */
-    @Transactional(rollbackOn = Exception.class)
-    public PermissionModel updateByDto(Long id, PermissionDto dto) {
 
-        this.validateDtoForUpdate(dto, id);
-
-        PermissionModel model = this.repository.getById(id);
-
-        model.setDescription(dto.getDescription());
-        model.setDisplayName(dto.getDisplayName());
-
-        return this.repository.save(model);
-
+    @Override
+    public void create(PermissionDto dto) {
+        throw new BusinessException("Create permission not permitted.");
     }
 
-    /**
-     * Check Validation Rules for Update:
-     *  - Description is required
-     *  - Display name is required
-     *  - Id must exist
-     *  If any validation fails is throws a business exception.
-     */
-    public void validateDtoForUpdate(ParametricDto dto, Long id) {
-
-        super.descriptionIsRequired(dto.getDescription());
-        super.displayNameIsRequired(dto.getDisplayName());
-        super.idMustExist(id);
-
+    @Override
+    public void update(PermissionDto dto, Long id) {
+        throw new BusinessException("Update permission not permitted.");
     }
 
-    /**
-     * Inject repository for testing.
-     * @param repository
-     */
-    public void setRepository(PermissionRepository repository) {
-        super.setRepository(repository);
+    @Override
+    public void deleteById(Long id) {
+        throw new BusinessException("Delete permission not permitted.");
     }
-
 }

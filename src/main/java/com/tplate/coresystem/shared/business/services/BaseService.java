@@ -1,5 +1,6 @@
 package com.tplate.coresystem.shared.business.services;
 
+import com.tplate.coresystem.shared.access.dtos.BaseDto;
 import com.tplate.coresystem.shared.business.exceptions.BusinessException;
 import com.tplate.coresystem.shared.persistence.models.BaseModel;
 import com.tplate.coresystem.shared.persistence.repositories.BaseRepository;
@@ -11,7 +12,11 @@ import java.util.Date;
 import java.util.List;
 
 @Slf4j
-public abstract class BaseService<R extends BaseRepository> {
+public abstract class BaseService<
+        R extends BaseRepository<E>,
+        E extends BaseModel,
+        D extends BaseDto
+        > {
 
     @Autowired
     protected R repository;
@@ -24,47 +29,11 @@ public abstract class BaseService<R extends BaseRepository> {
      */
     @Transactional(rollbackOn = Exception.class)
     public void deleteById(Long id) {
-
-        this.idMustExist(id);
-
+        if (!this.repository.existsById(id)) {
+            throw new BusinessException("Id %s not exist".formatted(id));
+        }
         this.repository.deleteById(id, new Date(), "System");
 
-        log.info(">>> Deleting entity with id {}", id);
-
-    }
-
-    /**
-     * Check: id must exist.
-     * @param id record.
-     * @throws BusinessException if validation fails
-     */
-    @Transactional(rollbackOn = Exception.class)
-    public void idMustExist(Long id) {
-
-        if (!this.repository.existsById(id)) {
-            throw new BusinessException("id does not exist");
-        }
-    }
-
-    /**
-     * Check: id list must exist.
-     * @param ids records.
-     * @throws BusinessException if validation fails.
-     */
-    @Transactional(rollbackOn = Exception.class)
-    public void idListMustExist(List<Long> ids) {
-        ids.forEach(this::idMustExist);
-    }
-
-    /**
-     * Get record by id (soft-deleted records are not included)
-     *
-     * @param id record
-     * @return record
-     */
-    @Transactional(rollbackOn = Exception.class)
-    public <E extends BaseModel> E getById(Long id) {
-        return (E) this.repository.getById(id);
     }
 
     /**
@@ -73,16 +42,35 @@ public abstract class BaseService<R extends BaseRepository> {
      * @return all records
      */
     @Transactional(rollbackOn = Exception.class)
-    public List<? extends BaseModel> findAll() {
+    public List<E> findAll() {
         return this.repository.findAll();
     }
 
     /**
-     * Inject repository for testing.
-     * @param repository
+     * Find record by id (soft-deleted records are not included)
+     *
+     * @param id record
+     * @return record
      */
-    public void setRepository(R repository) {
-        this.repository = repository;
+    @Transactional(rollbackOn = Exception.class)
+    public E findById(Long id) {
+
+        return this.repository.findById(id)
+                .orElseThrow(() -> new BusinessException("Id %s not exist.".formatted(id)));
+
     }
+
+    /**
+     * Create record by dto
+     * @param dto data
+     */
+    public abstract void create(D dto);
+
+    /**
+     * Update record by dto & id
+     * @param dto data
+     * @param id record
+     */
+    public abstract void update(D dto, Long id);
 
 }
