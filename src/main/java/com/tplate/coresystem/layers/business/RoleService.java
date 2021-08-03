@@ -6,6 +6,7 @@ import com.tplate.coresystem.layers.persistence.repositories.PermissionRepositor
 import com.tplate.coresystem.layers.persistence.repositories.RoleRepository;
 import com.tplate.coresystem.shared.business.exceptions.BusinessException;
 import com.tplate.coresystem.shared.business.services.BaseService;
+import com.tplate.coresystem.shared.business.services.DeletableService;
 import com.tplate.coresystem.shared.business.services.SearchableService;
 import com.tplate.coresystem.shared.business.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,11 @@ public class RoleService implements
         SearchableService<
                 RoleRepository,
                 RoleModel,
-                RoleDto> {
+                RoleDto> ,
+        DeletableService <
+                RoleRepository,
+                RoleModel
+                > {
 
     @Autowired
     private RoleRepository repository;
