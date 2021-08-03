@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
+@AllArgsConstructor
 public class PermissionDto extends BaseDto {
 
     private String name;

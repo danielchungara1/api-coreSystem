@@ -1,27 +1,18 @@
 package com.tplate.coresystem.permission.business;
 
-import com.tplate.coresystem.layers.access.dtos.PermissionDto;
 import com.tplate.coresystem.layers.business.PermissionService;
 import com.tplate.coresystem.layers.persistence.models.PermissionModel;
 import com.tplate.coresystem.layers.persistence.repositories.PermissionRepository;
 import com.tplate.coresystem.permission.shared.PermissionFactory;
 import com.tplate.coresystem.shared.Constants;
-import com.tplate.coresystem.shared.access.Endpoints;
-import com.tplate.coresystem.shared.access.Messages;
-import com.tplate.coresystem.shared.access.dtos.ResponseDto;
 import com.tplate.coresystem.shared.business.exceptions.BusinessException;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
