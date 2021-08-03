@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SuperBuilder
 @NoArgsConstructor
+@AllArgsConstructor
 public abstract class BaseDto {
 
     @EqualsAndHashCode.Include

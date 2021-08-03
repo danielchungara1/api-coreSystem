@@ -33,7 +33,7 @@ public class PermissionController implements
     }
 
     @Override
-    public Class<? super PermissionDto> getClassDTO() {
+    public Class<PermissionDto> getClassDTO() {
         return CLAZZ_DTO;
     }
 }

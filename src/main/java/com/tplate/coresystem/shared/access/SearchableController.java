@@ -16,7 +16,7 @@ public interface SearchableController<
 
 
     public S getService();
-    public Class<? super D> getClassDTO();
+    public Class<D> getClassDTO();
 
 
     @GetMapping("/{id}")
