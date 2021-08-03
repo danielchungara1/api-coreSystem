@@ -1,38 +1,39 @@
 package com.tplate.coresystem.layers.access.controllers;
 
-import com.tplate.coresystem.layers.access.dtos.PermissionDto;
-import com.tplate.coresystem.layers.business.PermissionService;
-import com.tplate.coresystem.layers.persistence.models.PermissionModel;
 import com.tplate.coresystem.layers.persistence.repositories.PermissionRepository;
-import com.tplate.coresystem.shared.access.BaseController;
+import com.tplate.coresystem.layers.business.PermissionService;
+import com.tplate.coresystem.shared.access.SearchableController;
+import com.tplate.coresystem.layers.access.dtos.PermissionDto;
+import com.tplate.coresystem.layers.persistence.models.PermissionModel;
 import com.tplate.coresystem.shared.access.Endpoints;
-import com.tplate.coresystem.shared.access.dtos.ResponseDto;
-import com.tplate.coresystem.shared.business.exceptions.BusinessException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(Endpoints.PERMISSIONS)
-public class PermissionController extends BaseController<
-        PermissionService,
-        PermissionRepository,
-        PermissionModel,
-        PermissionDto
-        > {
+public class PermissionController implements
+        SearchableController<
+                PermissionService,
+                PermissionRepository,
+                PermissionModel,
+                PermissionDto
+                >
+{
+
+    @Autowired
+    private PermissionService service;
+
+    private final Class CLAZZ_DTO = PermissionDto.class;
+
 
     @Override
-    public ResponseDto deleteById(Long id) {
-        throw new BusinessException("Delete permission not permitted.");
+    public PermissionService getService() {
+        return this.service;
     }
 
     @Override
-    public ResponseDto create(PermissionDto dto) {
-        throw new BusinessException("Create permission not permitted.");
+    public Class<? super PermissionDto> getClassDTO() {
+        return CLAZZ_DTO;
     }
-
-    @Override
-    public ResponseDto update(PermissionDto dto, Long id) {
-        throw new BusinessException("Update permission not permitted.");
-    }
-
 }
