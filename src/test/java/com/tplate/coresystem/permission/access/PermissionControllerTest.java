@@ -2,7 +2,7 @@ package com.tplate.coresystem.permission.access;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tplate.coresystem.layers.access.controllers.PermissionController;
-import com.tplate.coresystem.layers.access.dtos.PermissionDto;
+import com.tplate.coresystem.layers.access.dtos.PermissionOutDto;
 import com.tplate.coresystem.layers.business.PermissionService;
 import com.tplate.coresystem.layers.persistence.models.PermissionModel;
 import com.tplate.coresystem.permission.shared.PermissionFactory;
@@ -75,7 +75,7 @@ class PermissionControllerTest {
         // expected
         ResponseDto expected = ResponseDto.builder()
                 .message(Messages.FETCHED)
-                .data(new ArrayList<PermissionModel>(), PermissionDto[].class)
+                .data(new ArrayList<PermissionModel>(), PermissionOutDto[].class)
                 .build();
 
         // then
@@ -108,7 +108,7 @@ class PermissionControllerTest {
         // expected
         ResponseDto expected = ResponseDto.builder()
                 .message(Messages.FETCHED)
-                .data(List.of(PermissionFactory.MODEL_OK), PermissionDto[].class)
+                .data(List.of(PermissionFactory.MODEL_OK), PermissionOutDto[].class)
                 .build();
 
         // then

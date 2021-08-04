@@ -3,7 +3,7 @@ package com.tplate.coresystem.layers.access.controllers;
 import com.tplate.coresystem.layers.persistence.repositories.PermissionRepository;
 import com.tplate.coresystem.layers.business.PermissionService;
 import com.tplate.coresystem.shared.access.SearchableController;
-import com.tplate.coresystem.layers.access.dtos.PermissionDto;
+import com.tplate.coresystem.layers.access.dtos.PermissionOutDto;
 import com.tplate.coresystem.layers.persistence.models.PermissionModel;
 import com.tplate.coresystem.shared.access.Endpoints;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +17,14 @@ public class PermissionController implements
                 PermissionService,
                 PermissionRepository,
                 PermissionModel,
-                PermissionDto
+                PermissionOutDto
                 >
 {
 
     @Autowired
     private PermissionService service;
 
-    private final Class CLAZZ_DTO = PermissionDto.class;
+    private final Class CLAZZ_DTO = PermissionOutDto.class;
 
 
     @Override
@@ -33,7 +33,7 @@ public class PermissionController implements
     }
 
     @Override
-    public Class<PermissionDto> getClassDTO() {
+    public Class<PermissionOutDto> getClassOutDTO() {
         return CLAZZ_DTO;
     }
 }

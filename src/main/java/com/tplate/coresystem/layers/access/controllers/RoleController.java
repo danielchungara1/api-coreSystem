@@ -1,36 +1,40 @@
 package com.tplate.coresystem.layers.access.controllers;
 
-import com.tplate.coresystem.layers.access.dtos.PermissionDto;
-import com.tplate.coresystem.layers.access.dtos.RoleDto;
+import com.tplate.coresystem.layers.access.dtos.RoleInDto;
+import com.tplate.coresystem.layers.access.dtos.RoleOutDto;
 import com.tplate.coresystem.layers.business.RoleService;
 import com.tplate.coresystem.layers.persistence.models.RoleModel;
 import com.tplate.coresystem.layers.persistence.repositories.RoleRepository;
-import com.tplate.coresystem.shared.access.BaseController;
-import com.tplate.coresystem.shared.access.DeletableController;
-import com.tplate.coresystem.shared.access.Endpoints;
-import com.tplate.coresystem.shared.access.SearchableController;
+import com.tplate.coresystem.shared.access.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(Endpoints.ROLES)
-public class RoleController implements SearchableController<
-        RoleService,
-        RoleRepository,
-        RoleModel,
-        RoleDto
-        >,
-        DeletableController <
+public class RoleController implements
+        CreatableController<
+                RoleService,
+                RoleRepository,
+                RoleModel,
+                RoleOutDto,
+                RoleInDto
+                >,
+        SearchableController<
+                RoleService,
+                RoleRepository,
+                RoleModel,
+                RoleOutDto
+                >,
+        DeletableController<
                 RoleService,
                 RoleRepository,
                 RoleModel
-                >
-{
+                > {
 
     @Autowired
     private RoleService service;
 
-    private final Class CLAZZ_DTO = RoleDto.class;
+    private final Class CLAZZ_OUT_DTO = RoleOutDto.class;
 
     @Override
     public RoleService getService() {
@@ -38,7 +42,8 @@ public class RoleController implements SearchableController<
     }
 
     @Override
-    public Class<RoleDto> getClassDTO() {
-        return this.CLAZZ_DTO;
+    public Class<RoleOutDto> getClassOutDTO() {
+        return this.CLAZZ_OUT_DTO;
     }
+
 }
