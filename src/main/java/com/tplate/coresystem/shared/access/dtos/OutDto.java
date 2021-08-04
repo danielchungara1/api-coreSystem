@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class BaseDto {
+public abstract class OutDto {
 
     @EqualsAndHashCode.Include
     protected Long id;

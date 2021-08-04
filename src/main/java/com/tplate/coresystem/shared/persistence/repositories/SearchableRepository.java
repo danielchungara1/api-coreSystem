@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface SearchableRepository<E extends BaseModel> extends JpaRepository<E, Long> {
+public interface SearchableRepository<E extends BaseModel> extends BaseRepository<E> {
 
     /**
      * Find all (soft-deleted records are not included)

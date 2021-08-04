@@ -2,21 +2,21 @@ package com.tplate.coresystem.shared.access;
 
 import com.tplate.coresystem.shared.persistence.repositories.SearchableRepository;
 import com.tplate.coresystem.shared.business.services.SearchableService;
-import com.tplate.coresystem.shared.access.dtos.BaseDto;
+import com.tplate.coresystem.shared.access.dtos.OutDto;
 import com.tplate.coresystem.shared.access.dtos.ResponseDto;
 import com.tplate.coresystem.shared.persistence.models.BaseModel;
 import org.springframework.web.bind.annotation.*;
 
 public interface SearchableController<
-        S extends SearchableService<R, E, D>,
+        S extends SearchableService<R, E>,
         R extends SearchableRepository<E>,
         E extends BaseModel,
-        D extends BaseDto
+        O extends OutDto
         > {
 
 
     public S getService();
-    public Class<D> getClassDTO();
+    public Class<O> getClassOutDTO();
 
 
     @GetMapping("/{id}")
@@ -26,7 +26,7 @@ public interface SearchableController<
 
         return ResponseDto.builder()
                 .message(Messages.FETCHED)
-                .data(model, this.getClassDTO())
+                .data(model, this.getClassOutDTO())
                 .build();
 
     }
@@ -38,7 +38,7 @@ public interface SearchableController<
 
         return ResponseDto.builder()
                 .message(Messages.FETCHED)
-                .data(model, this.getClassDTO().arrayType())
+                .data(model, this.getClassOutDTO().arrayType())
                 .build();
     }
 

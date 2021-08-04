@@ -1,6 +1,6 @@
 package com.tplate.coresystem.shared.business.services;
 
-import com.tplate.coresystem.shared.access.dtos.BaseDto;
+import com.tplate.coresystem.shared.access.dtos.OutDto;
 import com.tplate.coresystem.shared.business.exceptions.BusinessException;
 import com.tplate.coresystem.shared.persistence.models.BaseModel;
 import com.tplate.coresystem.shared.persistence.repositories.SearchableRepository;
@@ -10,8 +10,7 @@ import java.util.List;
 
 public interface SearchableService<
         R extends SearchableRepository<E>,
-        E extends BaseModel,
-        D extends BaseDto
+        E extends BaseModel
         > {
 
     public R getRepository();

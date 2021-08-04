@@ -1,14 +1,11 @@
 package com.tplate.coresystem.shared.business.services;
 
-import com.tplate.coresystem.shared.access.dtos.BaseDto;
 import com.tplate.coresystem.shared.business.exceptions.BusinessException;
 import com.tplate.coresystem.shared.persistence.models.BaseModel;
 import com.tplate.coresystem.shared.persistence.repositories.DeletableRepository;
-import com.tplate.coresystem.shared.persistence.repositories.SearchableRepository;
 
 import javax.transaction.Transactional;
 import java.util.Date;
-import java.util.List;
 
 public interface DeletableService<
         R extends DeletableRepository<E>,

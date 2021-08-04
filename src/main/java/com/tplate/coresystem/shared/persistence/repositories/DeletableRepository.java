@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface DeletableRepository<E extends BaseModel> extends JpaRepository<E, Long> {
+public interface DeletableRepository<E extends BaseModel> extends BaseRepository<E> {
 
 
     /**
@@ -28,26 +28,6 @@ public interface DeletableRepository<E extends BaseModel> extends JpaRepository<
             """)
     @Modifying
     void deleteById(@Param("id") Long id, @Param("date") Date date, @Param("user") String user);
-
-    /**
-     * Returns whether an entity with the given id exists.
-     * And the entity must not have been soft-deleted
-     *
-     *
-     * @param id record
-     * @return true if an entity with the given id exists, false otherwise.
-     */
-    @Query("""
-                SELECT
-                    CASE
-                        WHEN count(e)> 0 THEN true
-                        ELSE false
-                    END
-                FROM #{#entityName} e
-                WHERE e.id = :id
-                AND e.deletedAt IS NULl
-            """)
-    boolean existsById(@Param("id") Long id);
 
 }
 

@@ -13,23 +13,23 @@ public interface RoleRepository extends
         SearchableRepository<RoleModel>,
         DeletableRepository<RoleModel> {
 
-//    /**
-//     * Check if name exist and the record is not deleted
-//     *
-//     * @param name record
-//     * @return true if exist otherwise false
-//     */
-//    @Query("""
-//                SELECT
-//                    CASE
-//                        WHEN count(e)> 0 THEN true
-//                        ELSE false
-//                    END
-//                FROM #{#entityName} e
-//                WHERE e.name = :name
-//                AND e.deletedAt IS NULl
-//            """)
-//    boolean existsByName(String name);
+    /**
+     * Check if name exist and the record is not deleted
+     *
+     * @param name record
+     * @return true if exist otherwise false
+     */
+    @Query("""
+                SELECT
+                    CASE
+                        WHEN count(e)> 0 THEN true
+                        ELSE false
+                    END
+                FROM #{#entityName} e
+                WHERE e.name = :name
+                AND e.deletedAt IS NULl
+            """)
+    boolean existsByName(String name);
 //
 //    /**
 //     * Check if name exists (soft-deleted records are not included)
