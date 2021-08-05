@@ -19,6 +19,13 @@ public class RoleController implements
                 RoleOutDto,
                 RoleInDto
                 >,
+        UpdatableController <
+                RoleService,
+                RoleRepository,
+                RoleModel,
+                RoleOutDto,
+                RoleInDto
+                >,
         SearchableController<
                 RoleService,
                 RoleRepository,

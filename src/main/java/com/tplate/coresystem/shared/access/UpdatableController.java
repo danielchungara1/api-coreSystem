@@ -4,13 +4,15 @@ import com.tplate.coresystem.shared.access.dtos.InDto;
 import com.tplate.coresystem.shared.access.dtos.OutDto;
 import com.tplate.coresystem.shared.access.dtos.ResponseDto;
 import com.tplate.coresystem.shared.business.services.CreatableService;
+import com.tplate.coresystem.shared.business.services.UpdatableService;
 import com.tplate.coresystem.shared.persistence.models.BaseModel;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-public interface CreatableController<
-        S extends CreatableService<R, E, I>,
+public interface UpdatableController<
+        S extends UpdatableService<R, E, I>,
         R extends JpaRepository<E, Long>,
         E extends BaseModel,
         O extends OutDto,
@@ -22,12 +24,12 @@ public interface CreatableController<
     public Class<O> getClassOutDTO();
 
 
-    @PostMapping("")
-    default public ResponseDto createByDto(@RequestBody I dto) {
+    @PutMapping("/{id}")
+    default public ResponseDto updateByDtoAndId(@RequestBody I dto, @PathVariable Long id) {
 
-        Object model = this.getService().createByDtoUsingTemplateMethod(dto);
+        E model = this.getService().updateByDtoAndIdUsingTemplateMethod(dto, id);
         return ResponseDto.builder()
-                .message(Messages.CREATED)
+                .message(Messages.UPDATED)
                 .data(model, getClassOutDTO())
                 .build();
     }
