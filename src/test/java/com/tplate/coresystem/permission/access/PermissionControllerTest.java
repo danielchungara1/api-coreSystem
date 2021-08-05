@@ -1,15 +1,12 @@
 package com.tplate.coresystem.permission.access;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tplate.coresystem.layers.access.controllers.PermissionController;
-import com.tplate.coresystem.layers.access.dtos.PermissionOutDto;
-import com.tplate.coresystem.layers.business.PermissionService;
-import com.tplate.coresystem.layers.persistence.models.PermissionModel;
-import com.tplate.coresystem.permission.shared.PermissionFactory;
-import com.tplate.coresystem.shared.access.Endpoints;
-import com.tplate.coresystem.shared.access.GlobalExceptionHandler;
-import com.tplate.coresystem.shared.access.Messages;
-import com.tplate.coresystem.shared.access.dtos.ResponseDto;
+import com.tplate.coresystem.permission.business.PermissionService;
+import com.tplate.coresystem.permission.persistence.PermissionModel;
+import com.tplate.coresystem.util.PermissionFactory;
+import com.tplate.coresystem.shared.*;
+import com.tplate.coresystem.shared.ResponseMessages;
+import com.tplate.coresystem.shared.dtos.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @ExtendWith(MockitoExtension.class)
@@ -60,7 +59,7 @@ class PermissionControllerTest {
     }
 
     @Test
-    void canRetrieveEmptyResultsWhenFindAllPermissionsAreInvoked() throws Exception {
+    void canRetrieveEmptyResultsWhenFindAllTest() throws Exception {
 
         // given
         given(permissionService.findAll())
@@ -68,13 +67,13 @@ class PermissionControllerTest {
 
         // when
         MockHttpServletResponse response = mvc.perform(
-                        get(Endpoints.PERMISSIONS)
-                                .accept(MediaType.APPLICATION_JSON))
+                get(Endpoints.PERMISSIONS)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // expected
         ResponseDto expected = ResponseDto.builder()
-                .message(Messages.FETCHED)
+                .message(ResponseMessages.FETCHED)
                 .data(new ArrayList<PermissionModel>(), PermissionOutDto[].class)
                 .build();
 
@@ -93,7 +92,7 @@ class PermissionControllerTest {
     }
 
     @Test
-    void canRetrieveOneResultWhenFindAllPermissionsAreInvoked() throws Exception {
+    void canRetrieveResultsWhenFindAllTest() throws Exception {
         // given
         given(permissionService.findAll())
                 .willReturn(
@@ -101,13 +100,13 @@ class PermissionControllerTest {
                 );
         // when
         MockHttpServletResponse response = mvc.perform(
-                        get(Endpoints.PERMISSIONS)
-                                .accept(MediaType.APPLICATION_JSON))
+                get(Endpoints.PERMISSIONS)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // expected
         ResponseDto expected = ResponseDto.builder()
-                .message(Messages.FETCHED)
+                .message(ResponseMessages.FETCHED)
                 .data(List.of(PermissionFactory.MODEL_OK), PermissionOutDto[].class)
                 .build();
 
@@ -124,4 +123,44 @@ class PermissionControllerTest {
         );
     }
 
+    @Test
+    void canRetrieveResultWhenFindByIdTest() throws Exception {
+        // given
+        given(permissionService.findById(PermissionFactory.LONG_ONE))
+                .willReturn(
+                        PermissionFactory.MODEL_OK
+                );
+        // when
+        MockHttpServletResponse response = mvc.perform(
+                get(Endpoints.PERMISSIONS + "/1")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        // expected
+        ResponseDto expected = ResponseDto.builder()
+                .message(ResponseMessages.FETCHED)
+                .data(PermissionFactory.MODEL_OK, PermissionOutDto.class)
+                .build();
+
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(
+                jsonResponseDto.write(expected).getJson()
+        );
+
+        // log
+        log.info(
+                ">>> Response: {}",
+                response.getContentAsString()
+        );
+    }
+
+    @Test
+    void throwExceptionWhenFindByIdTest() throws Exception {
+        // when
+        when(permissionService.findById(PermissionFactory.LONG_ZERO)).thenThrow(new BusinessException());
+
+        // Exec & Assert
+        assertThrows(BusinessException.class, () -> permissionController.findById(PermissionFactory.LONG_ZERO));
+    }
 }
