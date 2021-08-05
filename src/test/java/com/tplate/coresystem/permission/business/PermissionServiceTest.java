@@ -1,11 +1,9 @@
 package com.tplate.coresystem.permission.business;
 
-import com.tplate.coresystem.layers.business.PermissionService;
-import com.tplate.coresystem.layers.persistence.models.PermissionModel;
-import com.tplate.coresystem.layers.persistence.repositories.PermissionRepository;
-import com.tplate.coresystem.permission.shared.PermissionFactory;
-import com.tplate.coresystem.shared.Constants;
-import com.tplate.coresystem.shared.business.exceptions.BusinessException;
+import com.tplate.coresystem.permission.persistence.PermissionModel;
+import com.tplate.coresystem.permission.persistence.PermissionRepository;
+import com.tplate.coresystem.util.PermissionFactory;
+import com.tplate.coresystem.shared.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,44 +33,71 @@ class PermissionServiceTest {
     PermissionService permissionService;
 
     @Test
-    void getModelById_withExistingIdReturnsModel() {
+    void canRetrieveResultWhenFindByIdTest() {
 
         // when
-        when(mockRepository.findById(Constants.LONG_ONE)).thenReturn(
+        when(mockRepository.findById(PermissionFactory.LONG_ONE)).thenReturn(
                 Optional.ofNullable(PermissionFactory.MODEL_OK)
         );
 
         // exec
-        PermissionModel actual = this.permissionService.findById(Constants.LONG_ONE);
+        PermissionModel result = this.permissionService.findById(PermissionFactory.LONG_ONE);
 
         // expected
         PermissionModel expected = PermissionFactory.MODEL_OK;
 
         // Assert
-        assertThat(actual).isNotNull();
-        assertThat(expected).isEqualTo(actual);
-        assertThat(expected.getName()).isEqualTo(actual.getName());
+        assertThat(result).isNotNull();
+        assertThat(expected).isEqualTo(result);
+        assertThat(expected.getName()).isEqualTo(result.getName());
 
 
         // log
         log.info(
-                ">>> Actual: {}",
-                actual.toString()
+                ">>> Result: {}",
+                result.toString()
         );
 
 
     }
 
     @Test
-    void findById_withNonExistingIdThrowsException() {
+    void throwExceptionWhenFindByIdTest() {
 
         // when
-        when(mockRepository.findById(Constants.LONG_ZERO)).thenReturn(Optional.ofNullable(null));
+        when(mockRepository.findById(PermissionFactory.LONG_ZERO)).thenReturn(Optional.ofNullable(null));
 
         // Exec & Assert
-        assertThrows(BusinessException.class, () -> permissionService.findById(Constants.LONG_ZERO));
-
+        assertThrows(BusinessException.class, () -> permissionService.findById(PermissionFactory.LONG_ZERO));
 
     }
+
+    @Test
+    void canRetrieveResultsWhenFindAllTest() {
+
+        // when
+        when(mockRepository.findAll()).thenReturn(
+                List.of(PermissionFactory.MODEL_OK)
+        );
+
+        // exec
+        List<PermissionModel> result = this.permissionService.findAll();
+
+        // expected
+        List<PermissionModel> expected = List.of(PermissionFactory.MODEL_OK);
+
+        // Assert
+        assertThat(result).isNotNull();
+        assertThat(expected).isEqualTo(result);
+
+        // log
+        log.info(
+                ">>> Result: {}",
+                result.toString()
+        );
+
+    }
+
+
 
 }
