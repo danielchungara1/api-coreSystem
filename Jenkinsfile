@@ -4,7 +4,9 @@ pipeline {
     agent any
 
     environment {
-        nameImage = "core-system"
+        hostingURL = "https://registry.hub.docker.com"
+        hostingCredentials = 'dockerhub_credentials'
+        nameImage = "danielchungara1/core-system"
         versionImage = "latest"
         dockerImage = ''
     }
@@ -51,7 +53,7 @@ pipeline {
             steps {
                 echo '>>> Uploading image...'
                 script {
-                    docker.withRegistry("https://597217115475.dkr.ecr.us-east-2.amazonaws.com", "ecr:us-east-2:aws_credentials") {
+                    docker.withRegistry("$hostingURL", "$hostingCredentials") {
                       dockerImage.push()
                     }
                 }
@@ -72,7 +74,6 @@ node {
         remote.identityFile = identity
         stage("start services") {
             sshCommand remote: remote, command: 'cd /home/ubuntu/api-coreSystem/ && git checkout develop && git pull'
-            sshCommand remote: remote, command: 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 597217115475.dkr.ecr.us-east-2.amazonaws.com'
             sshCommand remote: remote, command: 'cd /home/ubuntu/api-coreSystem/ && docker-compose pull && docker-compose up -d'
             sshCommand remote: remote, command: 'docker image prune -f'
         }

@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   api:
-    image: 597217115475.dkr.ecr.us-east-2.amazonaws.com/core-system:latest
+    image: danielchungara1/core-system:latest
     build:
       context: .
     container_name: api
