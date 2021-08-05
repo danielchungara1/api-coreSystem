@@ -4,7 +4,9 @@ pipeline {
     agent any
 
     environment {
-        nameImage = "core-system"
+        hostingURL = "https://registry.hub.docker.com"
+        hostingCredentials = 'dockerhub_credentials'
+        nameImage = "danielchungara1/core-system"
         versionImage = "latest"
         dockerImage = ''
     }
@@ -51,7 +53,7 @@ pipeline {
             steps {
                 echo '>>> Uploading image...'
                 script {
-                    docker.withRegistry("https://597217115475.dkr.ecr.us-east-2.amazonaws.com", "ecr:us-east-2:aws_credentials") {
+                    docker.withRegistry("$hostingURL", "$hostingCredentials") {
                       dockerImage.push()
                     }
                 }
