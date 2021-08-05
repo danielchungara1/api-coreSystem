@@ -14,6 +14,7 @@ public interface SearchableService<
         > {
 
     public R getRepository();
+    public final static int MAX_SIZE_RESULTS = 256;
 
     /**
      * Goal: Find all records.
@@ -22,6 +23,9 @@ public interface SearchableService<
      */
     @Transactional(rollbackOn = Exception.class)
     default public List<E> findAll() {
+        if (this.getRepository().findAll().size() > MAX_SIZE_RESULTS) {
+            throw new BusinessException("The amount of results exceeds the maximum supported, use paging instead.");
+        }
         return this.getRepository().findAll();
     }
 
