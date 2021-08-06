@@ -11,8 +11,10 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class RoleInDto extends InDto {
 
+    @EqualsAndHashCode.Include
     private String name;
 
     private String description;

@@ -11,6 +11,7 @@ import java.util.Date;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SuperBuilder
 @NoArgsConstructor
+@ToString
 public abstract class BaseModel {
 
     @Id
