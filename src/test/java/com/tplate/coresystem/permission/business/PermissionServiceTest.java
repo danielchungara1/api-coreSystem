@@ -4,6 +4,7 @@ import com.tplate.coresystem.permission.persistence.PermissionModel;
 import com.tplate.coresystem.permission.persistence.PermissionRepository;
 import com.tplate.coresystem.util.PermissionFactory;
 import com.tplate.coresystem.shared.BusinessException;
+import com.tplate.coresystem.util.PrimitiveFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,15 +37,15 @@ class PermissionServiceTest {
     void canRetrieveResultWhenFindByIdTest() {
 
         // when
-        when(mockRepository.findById(PermissionFactory.LONG_ONE)).thenReturn(
-                Optional.ofNullable(PermissionFactory.MODEL_OK)
+        when(mockRepository.findById(PrimitiveFactory.LONG_ONE)).thenReturn(
+                Optional.ofNullable(PermissionFactory.getModelOK())
         );
 
         // exec
-        PermissionModel result = this.permissionService.findById(PermissionFactory.LONG_ONE);
+        PermissionModel result = this.permissionService.findById(PrimitiveFactory.LONG_ONE);
 
         // expected
-        PermissionModel expected = PermissionFactory.MODEL_OK;
+        PermissionModel expected = PermissionFactory.getModelOK();
 
         // Assert
         assertThat(result).isNotNull();
@@ -65,10 +66,10 @@ class PermissionServiceTest {
     void throwExceptionWhenFindByIdTest() {
 
         // when
-        when(mockRepository.findById(PermissionFactory.LONG_ZERO)).thenReturn(Optional.ofNullable(null));
+        when(mockRepository.findById(PrimitiveFactory.LONG_ZERO)).thenReturn(Optional.ofNullable(null));
 
         // Exec & Assert
-        assertThrows(BusinessException.class, () -> permissionService.findById(PermissionFactory.LONG_ZERO));
+        assertThrows(BusinessException.class, () -> permissionService.findById(PrimitiveFactory.LONG_ZERO));
 
     }
 
@@ -77,14 +78,14 @@ class PermissionServiceTest {
 
         // when
         when(mockRepository.findAll()).thenReturn(
-                List.of(PermissionFactory.MODEL_OK)
+                List.of(PermissionFactory.getModelOK())
         );
 
         // exec
         List<PermissionModel> result = this.permissionService.findAll();
 
         // expected
-        List<PermissionModel> expected = List.of(PermissionFactory.MODEL_OK);
+        List<PermissionModel> expected = List.of(PermissionFactory.getModelOK());
 
         // Assert
         assertThat(result).isNotNull();

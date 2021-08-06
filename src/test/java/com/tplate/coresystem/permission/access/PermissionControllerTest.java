@@ -7,6 +7,7 @@ import com.tplate.coresystem.util.PermissionFactory;
 import com.tplate.coresystem.shared.*;
 import com.tplate.coresystem.shared.ResponseMessages;
 import com.tplate.coresystem.shared.dtos.ResponseDto;
+import com.tplate.coresystem.util.PrimitiveFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -96,7 +97,7 @@ class PermissionControllerTest {
         // given
         given(permissionService.findAll())
                 .willReturn(
-                        List.of(PermissionFactory.MODEL_OK)
+                        List.of(PermissionFactory.getModelOK())
                 );
         // when
         MockHttpServletResponse response = mvc.perform(
@@ -107,7 +108,7 @@ class PermissionControllerTest {
         // expected
         ResponseDto expected = ResponseDto.builder()
                 .message(ResponseMessages.FETCHED)
-                .data(List.of(PermissionFactory.MODEL_OK), PermissionOutDto[].class)
+                .data(List.of(PermissionFactory.getModelOK()), PermissionOutDto[].class)
                 .build();
 
         // then
@@ -126,9 +127,9 @@ class PermissionControllerTest {
     @Test
     void canRetrieveResultWhenFindByIdTest() throws Exception {
         // given
-        given(permissionService.findById(PermissionFactory.LONG_ONE))
+        given(permissionService.findById(PrimitiveFactory.LONG_ONE))
                 .willReturn(
-                        PermissionFactory.MODEL_OK
+                        PermissionFactory.getModelOK()
                 );
         // when
         MockHttpServletResponse response = mvc.perform(
@@ -139,7 +140,7 @@ class PermissionControllerTest {
         // expected
         ResponseDto expected = ResponseDto.builder()
                 .message(ResponseMessages.FETCHED)
-                .data(PermissionFactory.MODEL_OK, PermissionOutDto.class)
+                .data(PermissionFactory.getModelOK(), PermissionOutDto.class)
                 .build();
 
         // then
@@ -158,9 +159,9 @@ class PermissionControllerTest {
     @Test
     void throwExceptionWhenFindByIdTest() throws Exception {
         // when
-        when(permissionService.findById(PermissionFactory.LONG_ZERO)).thenThrow(new BusinessException());
+        when(permissionService.findById(PrimitiveFactory.LONG_ZERO)).thenThrow(new BusinessException());
 
         // Exec & Assert
-        assertThrows(BusinessException.class, () -> permissionController.findById(PermissionFactory.LONG_ZERO));
+        assertThrows(BusinessException.class, () -> permissionController.findById(PrimitiveFactory.LONG_ZERO));
     }
 }
