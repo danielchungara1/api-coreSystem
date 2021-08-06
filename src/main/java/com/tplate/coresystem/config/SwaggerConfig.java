@@ -33,4 +33,7 @@ public class SwaggerConfig {
                 )
                 .info(new Info().title(MODULE_NAME).version(API_VERSION));
     }
+
+    // Todo: Delete this
+    public void test(){}
 }
