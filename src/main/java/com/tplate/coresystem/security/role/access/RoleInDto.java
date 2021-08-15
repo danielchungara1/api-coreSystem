@@ -1,4 +1,4 @@
-package com.tplate.coresystem.role.access;
+package com.tplate.coresystem.security.role.access;
 
 import com.tplate.coresystem.shared.dtos.InDto;
 import lombok.*;

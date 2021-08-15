@@ -1,6 +1,6 @@
 package com.tplate.coresystem.util;
 
-import com.tplate.coresystem.permission.persistence.PermissionModel;
+import com.tplate.coresystem.security.permission.persistence.PermissionModel;
 
 public class PermissionFactory  {
 

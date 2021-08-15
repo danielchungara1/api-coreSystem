@@ -1,8 +1,8 @@
-package com.tplate.coresystem.permission.access;
+package com.tplate.coresystem.security.permission.access;
 
-import com.tplate.coresystem.permission.persistence.PermissionModel;
-import com.tplate.coresystem.permission.persistence.PermissionRepository;
-import com.tplate.coresystem.permission.business.PermissionService;
+import com.tplate.coresystem.security.permission.persistence.PermissionModel;
+import com.tplate.coresystem.security.permission.persistence.PermissionRepository;
+import com.tplate.coresystem.security.permission.business.PermissionService;
 import com.tplate.coresystem.shared.controllers.SearchableController;
 import com.tplate.coresystem.shared.Endpoints;
 import org.springframework.beans.factory.annotation.Autowired;

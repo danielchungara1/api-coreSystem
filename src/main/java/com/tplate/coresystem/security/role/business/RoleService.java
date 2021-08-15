@@ -1,9 +1,9 @@
-package com.tplate.coresystem.role.business;
+package com.tplate.coresystem.security.role.business;
 
-import com.tplate.coresystem.permission.persistence.PermissionRepository;
-import com.tplate.coresystem.role.persistence.RoleModel;
-import com.tplate.coresystem.role.persistence.RoleRepository;
-import com.tplate.coresystem.role.access.RoleInDto;
+import com.tplate.coresystem.security.permission.persistence.PermissionRepository;
+import com.tplate.coresystem.security.role.persistence.RoleModel;
+import com.tplate.coresystem.security.role.persistence.RoleRepository;
+import com.tplate.coresystem.security.role.access.RoleInDto;
 import com.tplate.coresystem.shared.BusinessException;
 import com.tplate.coresystem.shared.services.CreatableService;
 import com.tplate.coresystem.shared.services.DeletableService;

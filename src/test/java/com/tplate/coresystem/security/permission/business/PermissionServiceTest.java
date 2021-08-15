@@ -1,7 +1,7 @@
-package com.tplate.coresystem.permission.business;
+package com.tplate.coresystem.security.permission.business;
 
-import com.tplate.coresystem.permission.persistence.PermissionModel;
-import com.tplate.coresystem.permission.persistence.PermissionRepository;
+import com.tplate.coresystem.security.permission.persistence.PermissionModel;
+import com.tplate.coresystem.security.permission.persistence.PermissionRepository;
 import com.tplate.coresystem.util.PermissionFactory;
 import com.tplate.coresystem.shared.BusinessException;
 import com.tplate.coresystem.util.PrimitiveFactory;

@@ -1,8 +1,8 @@
-package com.tplate.coresystem.role.access;
+package com.tplate.coresystem.security.role.access;
 
-import com.tplate.coresystem.role.persistence.RoleModel;
-import com.tplate.coresystem.role.persistence.RoleRepository;
-import com.tplate.coresystem.role.business.RoleService;
+import com.tplate.coresystem.security.role.persistence.RoleModel;
+import com.tplate.coresystem.security.role.persistence.RoleRepository;
+import com.tplate.coresystem.security.role.business.RoleService;
 import com.tplate.coresystem.shared.Endpoints;
 import com.tplate.coresystem.shared.controllers.CreatableController;
 import com.tplate.coresystem.shared.controllers.DeletableController;

@@ -1,7 +1,7 @@
-package com.tplate.coresystem.role.access;
+package com.tplate.coresystem.security.role.access;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tplate.coresystem.role.business.RoleService;
+import com.tplate.coresystem.security.role.business.RoleService;
 import com.tplate.coresystem.shared.BusinessException;
 import com.tplate.coresystem.shared.Endpoints;
 import com.tplate.coresystem.shared.GlobalExceptionHandler;
@@ -17,8 +17,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,13 +24,11 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.will;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 

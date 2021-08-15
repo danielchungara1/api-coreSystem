@@ -1,6 +1,6 @@
-package com.tplate.coresystem.role.access;
+package com.tplate.coresystem.security.role.access;
 
-import com.tplate.coresystem.permission.access.PermissionSMOutDto;
+import com.tplate.coresystem.security.permission.access.PermissionSMOutDto;
 import com.tplate.coresystem.shared.dtos.OutDto;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

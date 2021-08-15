@@ -1,12 +1,9 @@
-package com.tplate.coresystem.role.business;
+package com.tplate.coresystem.security.role.business;
 
-import com.tplate.coresystem.permission.business.PermissionService;
-import com.tplate.coresystem.permission.persistence.PermissionModel;
-import com.tplate.coresystem.permission.persistence.PermissionRepository;
-import com.tplate.coresystem.role.persistence.RoleModel;
-import com.tplate.coresystem.role.persistence.RoleRepository;
+import com.tplate.coresystem.security.permission.persistence.PermissionRepository;
+import com.tplate.coresystem.security.role.persistence.RoleModel;
+import com.tplate.coresystem.security.role.persistence.RoleRepository;
 import com.tplate.coresystem.shared.BusinessException;
-import com.tplate.coresystem.util.PermissionFactory;
 import com.tplate.coresystem.util.PrimitiveFactory;
 import com.tplate.coresystem.util.RoleFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -16,10 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.ui.Model;
-
-import java.util.Date;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,4 +1,4 @@
-package com.tplate.coresystem.permission.persistence;
+package com.tplate.coresystem.security.permission.persistence;
 
 import com.tplate.coresystem.shared.repositories.SearchableRepository;
 import org.springframework.stereotype.Repository;

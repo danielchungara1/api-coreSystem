@@ -1,7 +1,7 @@
 package com.tplate.coresystem.util;
 
-import com.tplate.coresystem.role.access.RoleInDto;
-import com.tplate.coresystem.role.persistence.RoleModel;
+import com.tplate.coresystem.security.role.access.RoleInDto;
+import com.tplate.coresystem.security.role.persistence.RoleModel;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.tplate.coresystem.permission.access;
+package com.tplate.coresystem.security.permission.access;
 
 import com.tplate.coresystem.shared.dtos.OutDto;
 import lombok.*;

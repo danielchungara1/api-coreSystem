@@ -1,8 +1,8 @@
-package com.tplate.coresystem.permission.access;
+package com.tplate.coresystem.security.permission.access;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tplate.coresystem.permission.business.PermissionService;
-import com.tplate.coresystem.permission.persistence.PermissionModel;
+import com.tplate.coresystem.security.permission.business.PermissionService;
+import com.tplate.coresystem.security.permission.persistence.PermissionModel;
 import com.tplate.coresystem.util.PermissionFactory;
 import com.tplate.coresystem.shared.*;
 import com.tplate.coresystem.shared.ResponseMessages;

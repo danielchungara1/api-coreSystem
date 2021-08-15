@@ -1,4 +1,4 @@
-package com.tplate.coresystem.role.persistence;
+package com.tplate.coresystem.security.role.persistence;
 
 import com.tplate.coresystem.shared.repositories.BaseRepository;
 import com.tplate.coresystem.shared.repositories.DeletableRepository;
