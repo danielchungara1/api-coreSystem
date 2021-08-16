@@ -90,12 +90,7 @@ public class RoleService implements
     @Override
     public RoleModel buildModelByDto(RoleInDto dto) {
         return
-                RoleModel.builder()
-                        .name(dto.getName())
-                        .description(dto.getDescription())
-                        .displayName(dto.getDisplayName())
-                        .permissions(this.permissionRepository.findAllById(dto.getPermissionsId()))
-                        .build();
+                this.mapModelByDto(new RoleModel(), dto);
     }
 
     @Override

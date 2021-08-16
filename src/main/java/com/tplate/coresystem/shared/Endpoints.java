@@ -11,5 +11,7 @@ public class Endpoints {
 
     public static final String PERMISSIONS = BASE_PATH + "/permissions";
     public static final String ROLES = BASE_PATH + "/roles";
+    public static final String PRODUCTS = BASE_PATH + "/products";
+    public static final String BRANDS = BASE_PATH + "/brands";
 
 }
