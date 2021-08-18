@@ -1,4 +1,4 @@
-package com.tplate.coresystem.catalog.imageProduct.persistence;
+package com.tplate.coresystem.catalog.product.persistence;
 
 import com.tplate.coresystem.catalog.product.persistence.ProductModel;
 import com.tplate.coresystem.shared.BaseModel;
@@ -11,14 +11,14 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "image_product")
+@Table(name = "product_image")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class ImageProductModel extends BaseModel {
+public class ProductImageModel extends BaseModel {
 
     @Column(name = "data")
     @Lob

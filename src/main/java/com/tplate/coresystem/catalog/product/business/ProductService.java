@@ -1,21 +1,24 @@
 package com.tplate.coresystem.catalog.product.business;
 
 import com.tplate.coresystem.catalog.brand.persistence.BrandRepository;
-import com.tplate.coresystem.catalog.imageProduct.persistence.ImageProductModel;
-import com.tplate.coresystem.catalog.imageProduct.persistence.ImageProductRepository;
+import com.tplate.coresystem.catalog.product.persistence.ProductImageModel;
+import com.tplate.coresystem.catalog.product.persistence.ProductImageRepository;
 import com.tplate.coresystem.catalog.product.access.ProductInDto;
 import com.tplate.coresystem.catalog.product.persistence.ProductModel;
 import com.tplate.coresystem.catalog.product.persistence.ProductRepository;
 import com.tplate.coresystem.shared.BusinessException;
-import com.tplate.coresystem.shared.dtos.ResponseDto;
 import com.tplate.coresystem.shared.services.CreatableService;
 import com.tplate.coresystem.shared.services.DeletableService;
 import com.tplate.coresystem.shared.services.SearchableService;
 import com.tplate.coresystem.shared.services.UpdatableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -45,7 +48,7 @@ public class ProductService implements
     private BrandRepository brandRepository;
 
     @Autowired
-    private ImageProductRepository imageRepository;
+    private ProductImageRepository imageRepository;
 
     @Override
     public ProductRepository getRepository() {
@@ -71,9 +74,7 @@ public class ProductService implements
     @Override
     public void validateDtoAndIdForUpdate(ProductInDto dto, Long id) {
 
-        if (!this.getRepository().existsById(id)) {
-            throw new BusinessException("Product id %s not exist".formatted(id));
-        }
+        this.validateExistenceProductId(id);
 
         if (this.getRepository().existsByCodeExcludingId(dto.getCode(), id)) {
             throw new BusinessException("code exists");
@@ -99,12 +100,61 @@ public class ProductService implements
     }
 
     @Transactional
-    public List<ImageProductModel> findImagesByIdProduct(Long id) {
+    public List<ProductImageModel> findImagesByProductId(Long id) {
 
-        if (!this.repository.existsById(id)) {
-            throw new BusinessException("Product id %s not exist.".formatted(id));
-        }
+        this.validateExistenceProductId(id);
 
         return this.imageRepository.findAllByIdProduct(id);
     }
+
+    @Transactional
+    public ProductImageModel findImageByProductIdAndImageId(Long productId, Long imageId) {
+
+        this.validateExistenceProductId(productId);
+        this.validateExistenceImageId(imageId);
+
+        return this.imageRepository.findById(imageId).get();
+    }
+
+    @Transactional
+    public void deleteImageByProductIdAndImageId(Long productId, Long imageId){
+
+        this.validateExistenceProductId(productId);
+        this.validateExistenceImageId(imageId);
+
+        this.imageRepository.deleteById(imageId, new Date(), "System");
+
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    public ProductImageModel saveImage(MultipartFile file, Long productId) throws IOException {
+
+        this.validateExistenceProductId(productId);
+
+        if (this.imageRepository.existsByName(file.getOriginalFilename())) {
+            throw  new BusinessException("Image exists.");
+        }
+
+        ProductImageModel imageModel = ProductImageModel.builder()
+                .name(StringUtils.cleanPath(file.getOriginalFilename()))
+                .data(file.getBytes())
+                .type(file.getContentType())
+                .product(this.repository.findById(productId).get())
+                .build();
+        return this.imageRepository.save(imageModel);
+    }
+
+    public void validateExistenceProductId(Long productId) {
+        if (!this.repository.existsById(productId)) {
+            throw new BusinessException("Product id %s not exist.".formatted(productId));
+        }
+    }
+
+    public void validateExistenceImageId(Long imageId) {
+        if (!this.imageRepository.existsById(imageId)) {
+            throw new BusinessException("Image id %s not exist.".formatted(imageId));
+        }
+    }
+
+
 }

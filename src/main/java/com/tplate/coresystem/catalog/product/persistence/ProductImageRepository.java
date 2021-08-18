@@ -1,6 +1,5 @@
-package com.tplate.coresystem.catalog.imageProduct.persistence;
+package com.tplate.coresystem.catalog.product.persistence;
 
-import com.tplate.coresystem.shared.repositories.BaseRepository;
 import com.tplate.coresystem.shared.repositories.DeletableRepository;
 import com.tplate.coresystem.shared.repositories.SearchableRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,12 +7,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface ImageProductRepository extends
-        DeletableRepository<ImageProductModel>,
-        SearchableRepository<ImageProductModel> {
+public interface ProductImageRepository extends
+        DeletableRepository<ProductImageModel>,
+        SearchableRepository<ProductImageModel> {
 
     /**
      * Find all (soft-deleted records are not included)
@@ -28,7 +26,7 @@ public interface ImageProductRepository extends
                 ORDER BY e.id ASC
             """)
 
-    List<ImageProductModel> findAllByIdProduct(@Param("id") Long id);
+    List<ProductImageModel> findAllByIdProduct(@Param("id") Long id);
 
     /**
      * Check if name exist and the record is not deleted

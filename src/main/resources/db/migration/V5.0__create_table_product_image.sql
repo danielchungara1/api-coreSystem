@@ -1,4 +1,4 @@
-CREATE TABLE image_product
+CREATE TABLE product_image
 (
     -- Base
     id              BIGSERIAL    NOT NULL,
