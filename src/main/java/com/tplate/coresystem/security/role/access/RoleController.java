@@ -9,10 +9,12 @@ import com.tplate.coresystem.shared.controllers.DeletableController;
 import com.tplate.coresystem.shared.controllers.SearchableController;
 import com.tplate.coresystem.shared.controllers.UpdatableController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(Endpoints.ROLES)
+@ConditionalOnExpression("${controller.role.enabled:false}")
 public class RoleController implements
         CreatableController<
                 RoleService,
