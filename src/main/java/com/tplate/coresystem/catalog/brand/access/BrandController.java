@@ -9,11 +9,13 @@ import com.tplate.coresystem.shared.controllers.DeletableController;
 import com.tplate.coresystem.shared.controllers.SearchableController;
 import com.tplate.coresystem.shared.controllers.UpdatableController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(Endpoints.BRANDS)
+@ConditionalOnExpression("${controller.brand.enabled:false}")
 public class BrandController implements
         CreatableController<
                 BrandService,

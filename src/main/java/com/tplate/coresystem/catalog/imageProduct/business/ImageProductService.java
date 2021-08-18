@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.Date;
 
 @Service
 public class ImageProductService {
@@ -22,18 +23,23 @@ public class ImageProductService {
     private ProductRepository productRepository;
 
     @Transactional(rollbackOn = Exception.class)
-    public void store(MultipartFile imageFile, Long idProduct) throws IOException {
+    public ImageProductModel store(MultipartFile imageFile, Long productId) throws IOException {
+
+        if (this.repository.existsByName(imageFile.getOriginalFilename())) {
+            throw  new BusinessException("Image exists.");
+        }
+        if (!this.productRepository.existsById(productId)) {
+            throw new BusinessException("Product id %s not exist.".formatted(productId));
+        }
 
         ImageProductModel model = ImageProductModel.builder()
                 .name(StringUtils.cleanPath(imageFile.getOriginalFilename()))
                 .data(imageFile.getBytes())
                 .type(imageFile.getContentType())
-                .product(this.productRepository
-                        .findById(idProduct)
-                        .orElseThrow(()-> new BusinessException("Product id %s not exist".formatted(idProduct))))
+                .product(this.productRepository.findById(productId).get())
                 .build();
 
-        this.repository.save(model);
+        return this.repository.save(model);
     }
 
     @Transactional
@@ -45,4 +51,11 @@ public class ImageProductService {
 
     }
 
+    @Transactional
+    public void deleteImage(Long imageId) {
+        if (!this.repository.existsById(imageId)) {
+            throw new BusinessException("Image id %s not exist.".formatted(imageId));
+        }
+        this.repository.deleteById(imageId, new Date(), "System");
+    }
 }

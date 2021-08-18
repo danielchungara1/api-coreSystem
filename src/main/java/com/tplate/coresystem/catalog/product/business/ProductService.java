@@ -1,16 +1,22 @@
 package com.tplate.coresystem.catalog.product.business;
 
 import com.tplate.coresystem.catalog.brand.persistence.BrandRepository;
+import com.tplate.coresystem.catalog.imageProduct.persistence.ImageProductModel;
+import com.tplate.coresystem.catalog.imageProduct.persistence.ImageProductRepository;
 import com.tplate.coresystem.catalog.product.access.ProductInDto;
 import com.tplate.coresystem.catalog.product.persistence.ProductModel;
 import com.tplate.coresystem.catalog.product.persistence.ProductRepository;
 import com.tplate.coresystem.shared.BusinessException;
+import com.tplate.coresystem.shared.dtos.ResponseDto;
 import com.tplate.coresystem.shared.services.CreatableService;
 import com.tplate.coresystem.shared.services.DeletableService;
 import com.tplate.coresystem.shared.services.SearchableService;
 import com.tplate.coresystem.shared.services.UpdatableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class ProductService implements
@@ -39,7 +45,7 @@ public class ProductService implements
     private BrandRepository brandRepository;
 
     @Autowired
-    private BrandRepository imageRepository;
+    private ImageProductRepository imageRepository;
 
     @Override
     public ProductRepository getRepository() {
@@ -92,4 +98,13 @@ public class ProductService implements
         return model;
     }
 
+    @Transactional
+    public List<ImageProductModel> findImagesByIdProduct(Long id) {
+
+        if (!this.repository.existsById(id)) {
+            throw new BusinessException("Product id %s not exist.".formatted(id));
+        }
+
+        return this.imageRepository.findAllByIdProduct(id);
+    }
 }
