@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
@@ -79,6 +80,16 @@ public class GlobalExceptionHandler {
         log.error(e.getMessage());
         return ResponseDto.builder()
                 .message("Resource not found.")
+                .data(ErrorDetailDto.buildWithRequest(request))
+                .build();
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseDto handleMaxSizeException(MaxUploadSizeExceededException e, WebRequest request) {
+        log.error(e.getMessage());
+        return ResponseDto.builder()
+                .message("File too large.")
                 .data(ErrorDetailDto.buildWithRequest(request))
                 .build();
     }

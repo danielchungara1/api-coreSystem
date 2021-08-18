@@ -14,4 +14,5 @@ public class Endpoints {
     public static final String PRODUCTS = BASE_PATH + "/products";
     public static final String BRANDS = BASE_PATH + "/brands";
 
+    public static final String IMAGES_PRODUCT = "/images-product";
 }

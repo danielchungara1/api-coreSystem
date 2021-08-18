@@ -48,7 +48,7 @@ public interface ProductRepository extends
                 AND e.id <> :id
                 AND e.deletedAt IS NULl
             """)
-    boolean existsByCodeExcludingId(@Param("code") String name, @Param("id") Long id);
+    boolean existsByCodeExcludingId(@Param("code") String code, @Param("id") Long id);
 
 }
 
