@@ -156,5 +156,25 @@ public class ProductService implements
         }
     }
 
+    /**
+     * Delete record by id
+     *
+     * @param id record
+     * @return record
+     */
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public void deleteById(Long id) {
+
+        if (!this.getRepository().existsById(id)) {
+            throw new BusinessException("Id %s not exist".formatted(id));
+        }
+
+        this.getRepository().deleteById(id, new Date(), "System");
+
+        this.imageRepository.deleteAllByProductId(id, new Date(), "System");
+
+    }
+
 
 }

@@ -2,10 +2,12 @@ package com.tplate.coresystem.catalog.product.persistence;
 
 import com.tplate.coresystem.shared.repositories.DeletableRepository;
 import com.tplate.coresystem.shared.repositories.SearchableRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -45,5 +47,20 @@ public interface ProductImageRepository extends
                 AND e.deletedAt IS NULl
             """)
     boolean existsByName(String name);
+
+    /**
+     * Delete record (soft-delete strategy)
+     *
+     * @param id record
+     */
+    @Query("""
+                UPDATE #{#entityName} e
+                SET e.deletedAt = :date,
+                    e.deletedBy = :user
+                WHERE e.product.id = :id
+            """)
+    @Modifying
+    void deleteAllByProductId(@Param("id") Long id, @Param("date") Date date, @Param("user") String user);
+
 }
 
