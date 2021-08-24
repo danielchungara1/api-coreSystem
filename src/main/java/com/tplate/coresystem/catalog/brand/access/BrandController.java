@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(Endpoints.BRANDS)
-@ConditionalOnExpression("${controller.brand.enabled:false}")
 public class BrandController implements
         CreatableController<
                 BrandService,

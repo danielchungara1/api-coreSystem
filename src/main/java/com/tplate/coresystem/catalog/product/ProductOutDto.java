@@ -1,4 +1,4 @@
-package com.tplate.coresystem.catalog.product.access;
+package com.tplate.coresystem.catalog.product;
 
 import com.tplate.coresystem.catalog.brand.access.BrandOutDto;
 import com.tplate.coresystem.shared.dtos.OutDto;

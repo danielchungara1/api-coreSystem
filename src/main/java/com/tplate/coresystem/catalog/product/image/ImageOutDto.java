@@ -1,4 +1,4 @@
-package com.tplate.coresystem.catalog.product.access;
+package com.tplate.coresystem.catalog.product.image;
 
 import com.tplate.coresystem.catalog.brand.access.BrandOutDto;
 import com.tplate.coresystem.shared.dtos.OutDto;
@@ -15,10 +15,12 @@ import java.math.BigDecimal;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductImageOutDto extends OutDto {
+public class ImageOutDto extends OutDto {
 
     private String name;
 
     private String type;
+
+    private Boolean main;
 
 }

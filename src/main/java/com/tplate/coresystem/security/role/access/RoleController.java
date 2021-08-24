@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(Endpoints.ROLES)
-@ConditionalOnExpression("${controller.role.enabled:false}")
 public class RoleController implements
         CreatableController<
                 RoleService,

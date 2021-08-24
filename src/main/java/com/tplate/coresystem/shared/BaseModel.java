@@ -2,6 +2,8 @@ package com.tplate.coresystem.shared;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.Date;
 

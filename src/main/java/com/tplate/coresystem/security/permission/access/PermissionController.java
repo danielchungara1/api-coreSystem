@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(Endpoints.PERMISSIONS)
-@ConditionalOnExpression("${controller.permission.enabled:false}")
 public class PermissionController implements
         SearchableController<
                 PermissionService,

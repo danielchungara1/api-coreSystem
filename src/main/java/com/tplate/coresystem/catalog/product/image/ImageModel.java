@@ -1,6 +1,5 @@
-package com.tplate.coresystem.catalog.product.persistence;
+package com.tplate.coresystem.catalog.product.image;
 
-import com.tplate.coresystem.catalog.product.persistence.ProductModel;
 import com.tplate.coresystem.shared.BaseModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,20 +17,19 @@ import javax.persistence.*;
 @SuperBuilder
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class ProductImageModel extends BaseModel {
+public class ImageModel extends BaseModel {
 
     @Column(name = "data")
     @Lob
-    protected byte[] data;
+    private byte[] data;
 
     @Column(name = "name")
-    protected String name;
+    private String name;
 
     @Column(name = "type")
-    protected String type;
+    private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="product_id")
-    private ProductModel product;
+    @Column(name = "main")
+    private Boolean main;
 
 }

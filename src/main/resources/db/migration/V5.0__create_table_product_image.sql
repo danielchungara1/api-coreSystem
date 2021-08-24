@@ -16,7 +16,7 @@ CREATE TABLE product_image
     -- Parametric
     name            VARCHAR(256)          DEFAULT NULL,
     type            VARCHAR(256)          DEFAULT NULL,
-    data            oid                 DEFAULT NULL,
+    data            OID                   DEFAULT NULL,
+    main            BOOLEAN               DEFAULT FALSE,
     product_id      BIGINT                DEFAULT NULL
-
 );

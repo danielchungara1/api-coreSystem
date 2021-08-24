@@ -1,6 +1,7 @@
-package com.tplate.coresystem.catalog.product.persistence;
+package com.tplate.coresystem.catalog.product;
 
 import com.tplate.coresystem.catalog.brand.persistence.BrandModel;
+import com.tplate.coresystem.catalog.product.image.ImageModel;
 import com.tplate.coresystem.shared.BaseModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -36,5 +38,9 @@ public class ProductModel extends BaseModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="brand_id")
     private BrandModel brand;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="product_id")
+    private List<ImageModel> images;
 
 }

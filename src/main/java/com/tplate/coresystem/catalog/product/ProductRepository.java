@@ -1,4 +1,4 @@
-package com.tplate.coresystem.catalog.product.persistence;
+package com.tplate.coresystem.catalog.product;
 
 import com.tplate.coresystem.shared.repositories.DeletableRepository;
 import com.tplate.coresystem.shared.repositories.SearchableRepository;
@@ -30,7 +30,7 @@ public interface ProductRepository extends
     boolean existsByCode(String code);
 
     /**
-     * Check if name exists (soft-deleted records are not included)
+     * Check if code exists (soft-deleted records are not included)
      * Excluding record with id
      *
      * @param id   record to exclude
