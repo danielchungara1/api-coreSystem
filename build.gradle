@@ -10,8 +10,8 @@ project.archivesBaseName='core-system'
 version = 'v1.0'
 
 compileJava {
-	targetCompatibility = '16' // Java version
-	sourceCompatibility = '15' // Language level
+	targetCompatibility = JavaVersion.VERSION_16 // Java version
+	sourceCompatibility = JavaVersion.VERSION_16 // Language level
 }
 
 configurations {
