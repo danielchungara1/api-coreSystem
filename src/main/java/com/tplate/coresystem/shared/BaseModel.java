@@ -2,6 +2,8 @@ package com.tplate.coresystem.shared;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,6 +13,7 @@ import java.util.Date;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SuperBuilder
 @NoArgsConstructor
+@ToString
 public abstract class BaseModel {
 
     @Id

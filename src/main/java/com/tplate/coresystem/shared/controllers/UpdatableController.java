@@ -1,11 +1,11 @@
 package com.tplate.coresystem.shared.controllers;
 
+import com.tplate.coresystem.shared.BaseModel;
 import com.tplate.coresystem.shared.ResponseMessages;
 import com.tplate.coresystem.shared.dtos.InDto;
 import com.tplate.coresystem.shared.dtos.OutDto;
 import com.tplate.coresystem.shared.dtos.ResponseDto;
 import com.tplate.coresystem.shared.services.UpdatableService;
-import com.tplate.coresystem.shared.BaseModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,6 +21,7 @@ public interface UpdatableController<
 
 
     public S getService();
+
     public Class<O> getClassOutDTO();
 
 

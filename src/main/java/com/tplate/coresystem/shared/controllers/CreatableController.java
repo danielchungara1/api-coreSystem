@@ -1,11 +1,11 @@
 package com.tplate.coresystem.shared.controllers;
 
+import com.tplate.coresystem.shared.BaseModel;
 import com.tplate.coresystem.shared.ResponseMessages;
 import com.tplate.coresystem.shared.dtos.InDto;
 import com.tplate.coresystem.shared.dtos.OutDto;
 import com.tplate.coresystem.shared.dtos.ResponseDto;
 import com.tplate.coresystem.shared.services.CreatableService;
-import com.tplate.coresystem.shared.BaseModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +20,8 @@ public interface CreatableController<
 
 
     public S getService();
-    public Class<O> getClassOutDTO();
 
+    public Class<O> getClassOutDTO();
 
     @PostMapping("")
     default public ResponseDto createByDto(@RequestBody I dto) {

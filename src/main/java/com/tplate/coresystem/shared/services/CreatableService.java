@@ -14,8 +14,11 @@ public interface CreatableService<
 
 
     public R getRepository();
+
     public void validateDtoGeneral(I dto);
+
     public void validateDtoForCreate(I dto);
+
     public E buildModelByDto(I dto);
 
     @Transactional(rollbackOn = Exception.class)
@@ -28,7 +31,6 @@ public interface CreatableService<
         // Save
         return this.getRepository().save(model);
     }
-
 
 
 }
