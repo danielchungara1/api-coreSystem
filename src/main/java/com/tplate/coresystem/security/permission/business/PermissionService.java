@@ -13,7 +13,7 @@ public class PermissionService implements
         SearchableService<
                 PermissionRepository,
                 PermissionModel
-                        > {
+                > {
 
     @Autowired
     private PermissionRepository repository;

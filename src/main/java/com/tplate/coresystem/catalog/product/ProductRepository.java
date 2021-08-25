@@ -2,9 +2,13 @@ package com.tplate.coresystem.catalog.product;
 
 import com.tplate.coresystem.shared.repositories.DeletableRepository;
 import com.tplate.coresystem.shared.repositories.SearchableRepository;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends

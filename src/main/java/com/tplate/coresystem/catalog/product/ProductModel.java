@@ -1,6 +1,6 @@
 package com.tplate.coresystem.catalog.product;
 
-import com.tplate.coresystem.catalog.brand.persistence.BrandModel;
+import com.tplate.coresystem.catalog.brand.BrandModel;
 import com.tplate.coresystem.catalog.product.image.ImageModel;
 import com.tplate.coresystem.shared.BaseModel;
 import lombok.Getter;
@@ -8,9 +8,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,6 +23,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @ToString(callSuper = true)
+@Where(clause = "deleted_at IS NULL")
 public class ProductModel extends BaseModel {
 
     @Column(name = "code")
@@ -36,11 +39,19 @@ public class ProductModel extends BaseModel {
     protected Integer stock;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="brand_id")
+    @JoinColumn(name = "brand_id")
     private BrandModel brand;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="product_id")
+    @JoinColumn(name = "product_id")
     private List<ImageModel> images;
+
+    public List<ImageModel> getImages() {
+        return this.images == null ? new ArrayList<>() : this.images;
+    }
+
+    public void addImage(ImageModel imageModel) {
+        this.getImages().add(imageModel);
+    }
 
 }

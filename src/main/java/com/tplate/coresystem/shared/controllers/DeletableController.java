@@ -1,10 +1,10 @@
 package com.tplate.coresystem.shared.controllers;
 
+import com.tplate.coresystem.shared.BaseModel;
 import com.tplate.coresystem.shared.ResponseMessages;
 import com.tplate.coresystem.shared.dtos.ResponseSimpleDto;
-import com.tplate.coresystem.shared.services.DeletableService;
-import com.tplate.coresystem.shared.BaseModel;
 import com.tplate.coresystem.shared.repositories.DeletableRepository;
+import com.tplate.coresystem.shared.services.DeletableService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 

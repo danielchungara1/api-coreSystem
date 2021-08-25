@@ -1,8 +1,5 @@
-package com.tplate.coresystem.catalog.brand.business;
+package com.tplate.coresystem.catalog.brand;
 
-import com.tplate.coresystem.catalog.brand.access.BrandInDto;
-import com.tplate.coresystem.catalog.brand.persistence.BrandModel;
-import com.tplate.coresystem.catalog.brand.persistence.BrandRepository;
 import com.tplate.coresystem.shared.BusinessException;
 import com.tplate.coresystem.shared.StringUtil;
 import com.tplate.coresystem.shared.services.CreatableService;

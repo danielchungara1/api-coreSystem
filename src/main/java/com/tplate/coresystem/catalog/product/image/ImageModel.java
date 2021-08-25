@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -17,6 +18,7 @@ import javax.persistence.*;
 @SuperBuilder
 @NoArgsConstructor
 @ToString(callSuper = true)
+@Where(clause = "deleted_at IS NULL")
 public class ImageModel extends BaseModel {
 
     @Column(name = "data")
@@ -31,5 +33,8 @@ public class ImageModel extends BaseModel {
 
     @Column(name = "main")
     private Boolean main;
+
+    @Transient
+    private String url;
 
 }

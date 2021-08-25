@@ -14,7 +14,7 @@ public class SwaggerConfig {
     private static final String SECURITY_SCHEMA = "bearerAuth";
     private static final String SCHEMA = "bearer";
     private static final String BEARER_FORMAT = "JWT";
-    private static final String MODULE_NAME = "API_REST";
+    private static final String MODULE_NAME = "API REST";
     private static final String API_VERSION = "v1.0";
 
     @Bean
@@ -33,7 +33,4 @@ public class SwaggerConfig {
                 )
                 .info(new Info().title(MODULE_NAME).version(API_VERSION));
     }
-
-    // Todo: Delete this
-    public void test(){}
 }

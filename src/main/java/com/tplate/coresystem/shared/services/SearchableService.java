@@ -1,8 +1,7 @@
 package com.tplate.coresystem.shared.services;
 
-import com.tplate.coresystem.shared.dtos.OutDto;
-import com.tplate.coresystem.shared.BusinessException;
 import com.tplate.coresystem.shared.BaseModel;
+import com.tplate.coresystem.shared.BusinessException;
 import com.tplate.coresystem.shared.repositories.SearchableRepository;
 
 import javax.transaction.Transactional;
@@ -14,19 +13,23 @@ public interface SearchableService<
         > {
 
     public R getRepository();
+
     public final static int MAX_SIZE_RESULTS = 256; // TODO: Load from properties.
 
     /**
-     * Goal: Find all records.
+     * Find all records.
      *
      * @return all records
      */
     @Transactional(rollbackOn = Exception.class)
     default public List<E> findAll() {
+
         if (this.getRepository().findAll().size() > MAX_SIZE_RESULTS) {
             throw new BusinessException("The amount of results exceeds the maximum supported, use paging instead.");
         }
+
         return this.getRepository().findAll();
+
     }
 
     /**

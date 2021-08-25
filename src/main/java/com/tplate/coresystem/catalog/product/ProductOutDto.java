@@ -1,6 +1,7 @@
 package com.tplate.coresystem.catalog.product;
 
-import com.tplate.coresystem.catalog.brand.access.BrandOutDto;
+import com.tplate.coresystem.catalog.brand.BrandOutDto;
+import com.tplate.coresystem.catalog.product.image.ImageOutDto;
 import com.tplate.coresystem.shared.dtos.OutDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,5 +28,7 @@ public class ProductOutDto extends OutDto {
     private Long stock;
 
     private BrandOutDto brand;
+
+    private List<ImageOutDto> images;
 
 }

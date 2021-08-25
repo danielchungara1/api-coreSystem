@@ -18,25 +18,25 @@ public class ProductController implements
                 ProductModel,
                 ProductOutDto,
                 ProductInDto
-                        >,
+                >,
         UpdatableController<
                 ProductService,
                 ProductRepository,
                 ProductModel,
                 ProductOutDto,
                 ProductInDto
-                        >,
+                >,
         SearchableController<
                 ProductService,
                 ProductRepository,
                 ProductModel,
                 ProductOutDto
-                        >,
+                >,
         DeletableController<
                 ProductService,
                 ProductRepository,
                 ProductModel
-                        > {
+                > {
 
     @Autowired
     private ProductService service;

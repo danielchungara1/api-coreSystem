@@ -1,6 +1,6 @@
-package com.tplate.coresystem.catalog.brand.access;
+package com.tplate.coresystem.catalog.brand;
 
-import com.tplate.coresystem.shared.dtos.InDto;
+import com.tplate.coresystem.shared.dtos.OutDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BrandInDto extends InDto {
+public class BrandOutDto extends OutDto {
 
     private String name;
 

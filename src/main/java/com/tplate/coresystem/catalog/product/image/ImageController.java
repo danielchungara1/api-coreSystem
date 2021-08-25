@@ -4,6 +4,8 @@ import com.tplate.coresystem.catalog.product.ProductOutDto;
 import com.tplate.coresystem.shared.Endpoints;
 import com.tplate.coresystem.shared.ResponseMessages;
 import com.tplate.coresystem.shared.dtos.ResponseDto;
+import com.tplate.coresystem.shared.dtos.ResponseSimpleDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping(Endpoints.PRODUCTS)
 @Slf4j
+@Tag(name = "product-image-controller")
 public class ImageController {
 
     @Autowired
@@ -24,16 +28,16 @@ public class ImageController {
 
     private final Class CLAZZ_OUT_DTO = ProductOutDto.class;
 
-    @PutMapping(value = "/{productId}/upload-image", consumes = {
+
+    @PostMapping(value = "/{id}/main-image", consumes = {
             MediaType.MULTIPART_FORM_DATA_VALUE
     })
-    public ResponseDto uploadImage(
-            @PathVariable Long productId,
-            @RequestPart(value = "file", required = true) MultipartFile file,
-            @RequestParam(value = "main", required = true) Boolean main
+    public ResponseDto addMainImage(
+            @PathVariable Long id,
+            @RequestPart(value = "file", required = true) MultipartFile file
     ) throws IOException {
 
-        ImageModel model = this.service.uploadImage(file, productId, new ImageInDto(main));
+        ImageModel model = this.service.addMainImage(file, id);
 
         return ResponseDto.builder()
                 .message(ResponseMessages.UPLOADED)
@@ -41,36 +45,73 @@ public class ImageController {
                 .build();
     }
 
+    @PostMapping(value = "/{id}/alternative-image", consumes = {
+            MediaType.MULTIPART_FORM_DATA_VALUE
+    })
+    public ResponseDto addAlternativeImage(
+            @PathVariable Long id,
+            @RequestPart(value = "file", required = true) MultipartFile file
+    ) throws IOException {
 
-    @GetMapping("/{productId}/download-main-image")
-    public ResponseEntity<byte[]> downloadImage(@PathVariable Long productId) {
+        ImageModel model = this.service.addAlternativeImage(file, id);
 
-        ImageModel model = this.service.downloadMainImage(productId);
+        return ResponseDto.builder()
+                .message(ResponseMessages.UPLOADED)
+                .data(model, ImageOutDto.class)
+                .build();
+    }
+
+    @GetMapping("/{id}/images/main-image")
+    public ResponseEntity<byte[]> findMainImage(@PathVariable Long id) {
+
+        ImageModel model = this.service.findMainImage(id);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "atachment; filename=\"" + model.getName() + "\"")
                 .body(model.getData());
 
     }
-//
-//    @GetMapping("/{productId}/images")
-//    public ResponseDto getImages(@PathVariable Long id) {
-//
-//        List<ProductImageModel> images = this.service.findImagesByProductId(id);
-//
-//        return ResponseDto.builder()
-//                .message(ResponseMessages.FETCHED)
-//                .data(images, ProductImageOutDto[].class)
-//                .build();
-//
-//    }
-//
-//    @DeleteMapping("/{idProd}/images/{idImg}")
-//    public ResponseSimpleDto deleteImage(@PathVariable Long idProd, @PathVariable Long idImg) {
-//        this.service.deleteImageByProductIdAndImageId(idProd, idImg);
-//        return ResponseSimpleDto.builder()
-//                .message(ResponseMessages.DELETED)
-//                .build();
-//    }
+
+    @GetMapping("/{id}/images/alternative-images")
+    public ResponseDto findAlternativeImages(@PathVariable Long id) {
+
+        List<ImageModel> models = this.service.findAlternativeImages(id);
+
+        return ResponseDto.builder()
+                .message(ResponseMessages.FETCHED)
+                .data(models, ImageOutDto[].class)
+                .build();
+    }
+
+    @GetMapping("/{id}/images/{imageId}")
+    public ResponseEntity<byte[]> findImage(@PathVariable Long id, @PathVariable Long imageId) {
+
+        ImageModel model = this.service.findImage(id, imageId);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "atachment; filename=\"" + model.getName() + "\"")
+                .body(model.getData());
+
+    }
+
+    @GetMapping("/{id}/images")
+    public ResponseDto getImages(@PathVariable Long id) {
+
+        List<ImageModel> images = this.service.findAllByProductId(id);
+
+        return ResponseDto.builder()
+                .message(ResponseMessages.FETCHED)
+                .data(images, ImageOutDto[].class)
+                .build();
+
+    }
+
+    @DeleteMapping("/{id}/images/{imageId}")
+    public ResponseSimpleDto deleteImage(@PathVariable Long id, @PathVariable Long imageId) {
+        this.service.deleteImageByProductIdAndImageId(id, imageId);
+        return ResponseSimpleDto.builder()
+                .message(ResponseMessages.DELETED)
+                .build();
+    }
 
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @ToString(callSuper = true)
+@Where(clause = "deleted_at IS NULL")
 public class RoleModel extends BaseModel {
 
     @Column(name = "name")
@@ -31,11 +33,9 @@ public class RoleModel extends BaseModel {
     protected String displayName;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="permission_role",
-            joinColumns={@JoinColumn(name="role_id")},
-            inverseJoinColumns={@JoinColumn(name="permission_id")})
+    @JoinTable(name = "permission_role",
+            joinColumns = {@JoinColumn(name = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name = "permission_id")})
     private List<PermissionModel> permissions;
-
-
 
 }

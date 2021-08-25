@@ -1,12 +1,11 @@
 package com.tplate.coresystem.security.permission.access;
 
+import com.tplate.coresystem.security.permission.business.PermissionService;
 import com.tplate.coresystem.security.permission.persistence.PermissionModel;
 import com.tplate.coresystem.security.permission.persistence.PermissionRepository;
-import com.tplate.coresystem.security.permission.business.PermissionService;
-import com.tplate.coresystem.shared.controllers.SearchableController;
 import com.tplate.coresystem.shared.Endpoints;
+import com.tplate.coresystem.shared.controllers.SearchableController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +17,7 @@ public class PermissionController implements
                 PermissionRepository,
                 PermissionModel,
                 PermissionOutDto
-                >
-{
+                > {
 
     @Autowired
     private PermissionService service;

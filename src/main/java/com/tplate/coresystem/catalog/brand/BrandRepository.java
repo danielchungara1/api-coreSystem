@@ -1,4 +1,4 @@
-package com.tplate.coresystem.catalog.brand.persistence;
+package com.tplate.coresystem.catalog.brand;
 
 import com.tplate.coresystem.shared.repositories.DeletableRepository;
 import com.tplate.coresystem.shared.repositories.SearchableRepository;

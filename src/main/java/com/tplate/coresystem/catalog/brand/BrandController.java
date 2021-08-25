@@ -1,15 +1,11 @@
-package com.tplate.coresystem.catalog.brand.access;
+package com.tplate.coresystem.catalog.brand;
 
-import com.tplate.coresystem.catalog.brand.business.BrandService;
-import com.tplate.coresystem.catalog.brand.persistence.BrandModel;
-import com.tplate.coresystem.catalog.brand.persistence.BrandRepository;
 import com.tplate.coresystem.shared.Endpoints;
 import com.tplate.coresystem.shared.controllers.CreatableController;
 import com.tplate.coresystem.shared.controllers.DeletableController;
 import com.tplate.coresystem.shared.controllers.SearchableController;
 import com.tplate.coresystem.shared.controllers.UpdatableController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,25 +18,25 @@ public class BrandController implements
                 BrandModel,
                 BrandOutDto,
                 BrandInDto
-                        >,
+                >,
         UpdatableController<
                 BrandService,
                 BrandRepository,
                 BrandModel,
                 BrandOutDto,
                 BrandInDto
-                        >,
+                >,
         SearchableController<
                 BrandService,
                 BrandRepository,
                 BrandModel,
                 BrandOutDto
-                        >,
+                >,
         DeletableController<
                 BrandService,
                 BrandRepository,
                 BrandModel
-                        > {
+                > {
 
     @Autowired
     private BrandService service;

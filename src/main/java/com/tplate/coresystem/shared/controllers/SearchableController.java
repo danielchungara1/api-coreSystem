@@ -1,12 +1,15 @@
 package com.tplate.coresystem.shared.controllers;
 
+import com.tplate.coresystem.shared.BaseModel;
 import com.tplate.coresystem.shared.ResponseMessages;
-import com.tplate.coresystem.shared.repositories.SearchableRepository;
-import com.tplate.coresystem.shared.services.SearchableService;
 import com.tplate.coresystem.shared.dtos.OutDto;
 import com.tplate.coresystem.shared.dtos.ResponseDto;
-import com.tplate.coresystem.shared.BaseModel;
-import org.springframework.web.bind.annotation.*;
+import com.tplate.coresystem.shared.repositories.SearchableRepository;
+import com.tplate.coresystem.shared.services.SearchableService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import javax.transaction.Transactional;
 
 public interface SearchableController<
         S extends SearchableService<R, E>,
@@ -21,6 +24,7 @@ public interface SearchableController<
 
 
     @GetMapping("/{id}")
+    @Transactional
     default public ResponseDto findById(@PathVariable Long id) {
 
         final Object model = this.getService().findById(id);
@@ -33,6 +37,7 @@ public interface SearchableController<
     }
 
     @GetMapping("")
+    @Transactional
     default public ResponseDto findAll() {
 
         final Object model = this.getService().findAll();

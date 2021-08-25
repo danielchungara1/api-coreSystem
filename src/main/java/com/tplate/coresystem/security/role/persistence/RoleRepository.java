@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface RoleRepository extends
         SearchableRepository<RoleModel>,
         DeletableRepository<RoleModel>,
-        BaseRepository<RoleModel>{
+        BaseRepository<RoleModel> {
 
     /**
      * Check if name exist and the record is not deleted

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -17,6 +18,7 @@ import javax.persistence.*;
 @SuperBuilder
 @NoArgsConstructor
 @ToString
+@Where(clause = "deleted_at IS NULL")
 public class PermissionModel extends BaseModel {
 
     @Column(name = "name")

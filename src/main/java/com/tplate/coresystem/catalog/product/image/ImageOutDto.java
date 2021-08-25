@@ -1,14 +1,11 @@
 package com.tplate.coresystem.catalog.product.image;
 
-import com.tplate.coresystem.catalog.brand.access.BrandOutDto;
 import com.tplate.coresystem.shared.dtos.OutDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -22,5 +19,7 @@ public class ImageOutDto extends OutDto {
     private String type;
 
     private Boolean main;
+
+    private String url;
 
 }

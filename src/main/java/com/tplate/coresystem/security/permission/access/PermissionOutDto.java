@@ -1,7 +1,10 @@
 package com.tplate.coresystem.security.permission.access;
 
 import com.tplate.coresystem.shared.dtos.OutDto;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Getter
