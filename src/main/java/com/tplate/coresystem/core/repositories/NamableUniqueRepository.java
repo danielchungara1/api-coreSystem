@@ -1,36 +1,32 @@
-package com.tplate.coresystem.catalog.product;
+package com.tplate.coresystem.core.repositories;
 
-import com.tplate.coresystem.core.repositories.DeletableRepository;
-import com.tplate.coresystem.core.repositories.SearchableRepository;
+import com.tplate.coresystem.core.BaseModel;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ProductRepository extends
-        SearchableRepository<ProductModel>,
-        DeletableRepository<ProductModel> {
-
+@NoRepositoryBean
+public interface NamableUniqueRepository<E extends BaseModel> extends BaseRepository<E> {
     /**
-     * Check if code exist and the record is not deleted
+     * Check if name exist and the record is not deleted
      *
      * @param name record
      * @return true if exist otherwise false
      */
-    @Query(""" 
+    @Query("""
                 SELECT
                     CASE
                         WHEN count(e)> 0 THEN true
                         ELSE false
                     END
                 FROM #{#entityName} e
-                WHERE e.code = :code
+                WHERE e.name = :name
                 AND e.deletedAt IS NULl
             """)
-    boolean existsByCode(String code);
+    boolean existsByName(String name);
 
     /**
-     * Check if code exists (soft-deleted records are not included)
+     * Check if name exists (soft-deleted records are not included)
      * Excluding record with id
      *
      * @param id   record to exclude
@@ -44,11 +40,10 @@ public interface ProductRepository extends
                         ELSE false
                     END
                 FROM #{#entityName} e
-                WHERE e.code = :code
+                WHERE e.name = :name
                 AND e.id <> :id
                 AND e.deletedAt IS NULl
             """)
-    boolean existsByCodeExcludingId(@Param("code") String code, @Param("id") Long id);
-
+    boolean existsByNameExcludingId(@Param("name") String name, @Param("id") Long id);
 }
 

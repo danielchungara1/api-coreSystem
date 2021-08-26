@@ -1,4 +1,4 @@
-package com.tplate.coresystem.catalog.brand;
+package com.tplate.coresystem.security.role;
 
 import com.tplate.coresystem.core.Endpoints;
 import com.tplate.coresystem.core.controllers.CreatableController;
@@ -10,46 +10,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Endpoints.BRANDS)
-public class BrandController implements
+@RequestMapping(Endpoints.ROLES)
+public class RoleController implements
         CreatableController<
-                BrandService,
-                BrandRepository,
-                BrandModel,
-                BrandOutDto,
-                BrandInDto
+                RoleService,
+                RoleRepository,
+                RoleModel,
+                RoleOutDto,
+                RoleInDto
                 >,
         UpdatableController<
-                BrandService,
-                BrandRepository,
-                BrandModel,
-                BrandOutDto,
-                BrandInDto
+                RoleService,
+                RoleRepository,
+                RoleModel,
+                RoleOutDto,
+                RoleInDto
                 >,
         SearchableController<
-                BrandService,
-                BrandRepository,
-                BrandModel,
-                BrandOutDto
+                RoleService,
+                RoleRepository,
+                RoleModel,
+                RoleOutDto
                 >,
         DeletableController<
-                BrandService,
-                BrandRepository,
-                BrandModel
+                RoleService,
+                RoleRepository,
+                RoleModel
                 > {
 
     @Autowired
-    private BrandService service;
+    private RoleService service;
 
-    private final Class CLAZZ_OUT_DTO = BrandOutDto.class;
+    private final Class CLAZZ_OUT_DTO = RoleOutDto.class;
 
     @Override
-    public BrandService getService() {
+    public RoleService getService() {
         return service;
     }
 
     @Override
-    public Class<BrandOutDto> getClassOutDTO() {
+    public Class<RoleOutDto> getClassOutDTO() {
         return this.CLAZZ_OUT_DTO;
     }
 

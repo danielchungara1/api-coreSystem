@@ -2,7 +2,7 @@ package com.tplate.coresystem.catalog.product;
 
 import com.tplate.coresystem.catalog.brand.BrandModel;
 import com.tplate.coresystem.catalog.product.image.ImageModel;
-import com.tplate.coresystem.shared.BaseModel;
+import com.tplate.coresystem.core.BaseModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

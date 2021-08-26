@@ -1,10 +1,10 @@
-package com.tplate.coresystem.catalog.product;
+package com.tplate.coresystem.security.role;
 
 import com.tplate.coresystem.core.dtos.InDto;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,17 +12,16 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class ProductInDto extends InDto {
+public class RoleInDto extends InDto {
 
     @EqualsAndHashCode.Include
-    private String code;
+    private String name;
 
     private String description;
 
-    private BigDecimal price;
+    private String displayName;
 
-    private Integer stock;
+    private List<Long> permissionsId;
 
-    private Long brandId;
 
 }

@@ -1,9 +1,10 @@
 package com.tplate.coresystem.security.role.business;
 
-import com.tplate.coresystem.security.permission.persistence.PermissionRepository;
-import com.tplate.coresystem.security.role.persistence.RoleModel;
-import com.tplate.coresystem.security.role.persistence.RoleRepository;
-import com.tplate.coresystem.shared.BusinessException;
+import com.tplate.coresystem.security.permission.PermissionRepository;
+import com.tplate.coresystem.security.role.RoleService;
+import com.tplate.coresystem.security.role.RoleModel;
+import com.tplate.coresystem.security.role.RoleRepository;
+import com.tplate.coresystem.core.BusinessException;
 import com.tplate.coresystem.util.PrimitiveFactory;
 import com.tplate.coresystem.util.RoleFactory;
 import lombok.extern.slf4j.Slf4j;

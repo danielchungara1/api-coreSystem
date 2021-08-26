@@ -1,10 +1,10 @@
 package com.tplate.coresystem.catalog.product;
 
-import com.tplate.coresystem.shared.Endpoints;
-import com.tplate.coresystem.shared.controllers.CreatableController;
-import com.tplate.coresystem.shared.controllers.DeletableController;
-import com.tplate.coresystem.shared.controllers.SearchableController;
-import com.tplate.coresystem.shared.controllers.UpdatableController;
+import com.tplate.coresystem.core.Endpoints;
+import com.tplate.coresystem.core.controllers.CreatableController;
+import com.tplate.coresystem.core.controllers.DeletableController;
+import com.tplate.coresystem.core.controllers.SearchableController;
+import com.tplate.coresystem.core.controllers.UpdatableController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
