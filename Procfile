@@ -1,1 +1,1 @@
-web: java -jar /build/libs/core-system-v1.0.jar
+web: java -jar build/libs/core-system-v1.0.jar
