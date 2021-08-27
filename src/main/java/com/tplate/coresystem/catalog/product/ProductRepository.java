@@ -2,6 +2,7 @@ package com.tplate.coresystem.catalog.product;
 
 import com.tplate.coresystem.core.repositories.DeletableRepository;
 import com.tplate.coresystem.core.repositories.SearchableRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends
         SearchableRepository<ProductModel>,
-        DeletableRepository<ProductModel> {
+        DeletableRepository<ProductModel>,
+        JpaSpecificationExecutor<ProductModel> {
 
     /**
      * Check if code exist and the record is not deleted
