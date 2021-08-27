@@ -1,6 +1,6 @@
 package com.tplate.coresystem.catalog.product;
 
-import com.tplate.coresystem.shared.dtos.InDto;
+import com.tplate.coresystem.core.dtos.InDto;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

@@ -1,6 +1,6 @@
 package com.tplate.coresystem.catalog.product.image;
 
-import com.tplate.coresystem.shared.dtos.OutDto;
+import com.tplate.coresystem.core.dtos.OutDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

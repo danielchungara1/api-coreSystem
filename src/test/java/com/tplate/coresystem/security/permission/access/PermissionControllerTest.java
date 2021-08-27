@@ -1,12 +1,14 @@
 package com.tplate.coresystem.security.permission.access;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tplate.coresystem.security.permission.business.PermissionService;
-import com.tplate.coresystem.security.permission.persistence.PermissionModel;
+import com.tplate.coresystem.security.permission.PermissionController;
+import com.tplate.coresystem.security.permission.PermissionOutDto;
+import com.tplate.coresystem.security.permission.PermissionService;
+import com.tplate.coresystem.security.permission.PermissionModel;
 import com.tplate.coresystem.util.PermissionFactory;
-import com.tplate.coresystem.shared.*;
-import com.tplate.coresystem.shared.ResponseMessages;
-import com.tplate.coresystem.shared.dtos.ResponseDto;
+import com.tplate.coresystem.core.*;
+import com.tplate.coresystem.core.ResponseMessages;
+import com.tplate.coresystem.core.dtos.ResponseDto;
 import com.tplate.coresystem.util.PrimitiveFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,13 +1,16 @@
 package com.tplate.coresystem.security.role.access;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tplate.coresystem.security.role.business.RoleService;
-import com.tplate.coresystem.shared.BusinessException;
-import com.tplate.coresystem.shared.Endpoints;
-import com.tplate.coresystem.shared.GlobalExceptionHandler;
-import com.tplate.coresystem.shared.ResponseMessages;
-import com.tplate.coresystem.shared.dtos.ResponseDto;
-import com.tplate.coresystem.shared.dtos.ResponseSimpleDto;
+import com.tplate.coresystem.security.role.RoleController;
+import com.tplate.coresystem.security.role.RoleInDto;
+import com.tplate.coresystem.security.role.RoleOutDto;
+import com.tplate.coresystem.security.role.RoleService;
+import com.tplate.coresystem.core.BusinessException;
+import com.tplate.coresystem.core.Endpoints;
+import com.tplate.coresystem.core.GlobalExceptionHandler;
+import com.tplate.coresystem.core.ResponseMessages;
+import com.tplate.coresystem.core.dtos.ResponseDto;
+import com.tplate.coresystem.core.dtos.ResponseSimpleDto;
 import com.tplate.coresystem.util.PrimitiveFactory;
 import com.tplate.coresystem.util.RoleFactory;
 import lombok.extern.slf4j.Slf4j;

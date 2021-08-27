@@ -1,6 +1,6 @@
 package com.tplate.coresystem.catalog.brand;
 
-import com.tplate.coresystem.shared.BaseModel;
+import com.tplate.coresystem.core.BaseModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,9 +1,10 @@
 package com.tplate.coresystem.security.permission.business;
 
-import com.tplate.coresystem.security.permission.persistence.PermissionModel;
-import com.tplate.coresystem.security.permission.persistence.PermissionRepository;
+import com.tplate.coresystem.security.permission.PermissionService;
+import com.tplate.coresystem.security.permission.PermissionModel;
+import com.tplate.coresystem.security.permission.PermissionRepository;
 import com.tplate.coresystem.util.PermissionFactory;
-import com.tplate.coresystem.shared.BusinessException;
+import com.tplate.coresystem.core.BusinessException;
 import com.tplate.coresystem.util.PrimitiveFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

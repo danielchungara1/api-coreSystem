@@ -2,12 +2,14 @@ package com.tplate.coresystem.catalog.product;
 
 import com.tplate.coresystem.catalog.brand.BrandRepository;
 import com.tplate.coresystem.catalog.product.image.ImageService;
-import com.tplate.coresystem.shared.BusinessException;
-import com.tplate.coresystem.shared.services.CreatableService;
-import com.tplate.coresystem.shared.services.DeletableService;
-import com.tplate.coresystem.shared.services.SearchableService;
-import com.tplate.coresystem.shared.services.UpdatableService;
+import com.tplate.coresystem.core.BusinessException;
+import com.tplate.coresystem.core.services.CreatableService;
+import com.tplate.coresystem.core.services.DeletableService;
+import com.tplate.coresystem.core.services.SearchableService;
+import com.tplate.coresystem.core.services.UpdatableService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -100,8 +102,9 @@ public class ProductService implements
                 .orElseThrow(
                         () -> new BusinessException("Product id %s not exist.".formatted(productId))
                 );
-        model.getImages().stream()
-                .forEach(imageModel -> imageModel.setUrl(this.imageService.getUrl(productId, imageModel.getId())));
+
+        this.atachUrls(model);
+
         return model;
 
     }
@@ -111,9 +114,7 @@ public class ProductService implements
 
         List<ProductModel> products = this.repository.findAll();
         products.forEach(
-                p -> p.getImages().stream().forEach(
-                        i -> i.setUrl(this.imageService.getUrl(p.getId(), i.getId()))
-                )
+                p -> this.atachUrls(p)
         );
         return products;
 
@@ -126,5 +127,27 @@ public class ProductService implements
             throw new BusinessException("Product if %s not exist.".formatted(productId));
         }
 
+    }
+
+    @Transactional
+    public Page<ProductModel> findAll(Pageable pageable, ProductSpecification specification) {
+
+        Page<ProductModel> page = this.getRepository().findAll(specification, pageable);
+
+        page.getContent().stream().forEach(p -> this.atachUrls(p));
+
+        return page;
+
+    }
+
+    /**
+     * Add image url for all product images
+     *
+     * @param product that contains images but without urls
+     */
+    private void atachUrls(ProductModel product) {
+        final Long PRODUCT_ID = product.getId();
+        product.getImages().stream()
+                .forEach(i -> i.setUrl(this.imageService.getUrl(PRODUCT_ID, i.getId())));
     }
 }

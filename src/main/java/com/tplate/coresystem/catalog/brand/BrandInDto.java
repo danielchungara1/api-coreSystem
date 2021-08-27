@@ -1,6 +1,6 @@
 package com.tplate.coresystem.catalog.brand;
 
-import com.tplate.coresystem.shared.dtos.InDto;
+import com.tplate.coresystem.core.dtos.InDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

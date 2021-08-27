@@ -2,7 +2,7 @@ package com.tplate.coresystem.catalog.product;
 
 import com.tplate.coresystem.catalog.brand.BrandOutDto;
 import com.tplate.coresystem.catalog.product.image.ImageOutDto;
-import com.tplate.coresystem.shared.dtos.OutDto;
+import com.tplate.coresystem.core.dtos.OutDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

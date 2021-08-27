@@ -1,10 +1,10 @@
 package com.tplate.coresystem.catalog.product.image;
 
 import com.tplate.coresystem.catalog.product.ProductOutDto;
-import com.tplate.coresystem.shared.Endpoints;
-import com.tplate.coresystem.shared.ResponseMessages;
-import com.tplate.coresystem.shared.dtos.ResponseDto;
-import com.tplate.coresystem.shared.dtos.ResponseSimpleDto;
+import com.tplate.coresystem.core.Endpoints;
+import com.tplate.coresystem.core.ResponseMessages;
+import com.tplate.coresystem.core.dtos.ResponseDto;
+import com.tplate.coresystem.core.dtos.ResponseSimpleDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.tplate.coresystem.catalog.product.image;
 
-import com.tplate.coresystem.shared.repositories.DeletableRepository;
-import com.tplate.coresystem.shared.repositories.SearchableRepository;
+import com.tplate.coresystem.core.repositories.DeletableRepository;
+import com.tplate.coresystem.core.repositories.SearchableRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
