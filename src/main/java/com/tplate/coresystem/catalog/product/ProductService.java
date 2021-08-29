@@ -94,14 +94,11 @@ public class ProductService implements
 
     }
 
+    @Override
     @Transactional
     public ProductModel findById(Long productId) {
 
-        ProductModel model = this.repository
-                .findById(productId)
-                .orElseThrow(
-                        () -> new BusinessException("Product id %s not exist.".formatted(productId))
-                );
+        ProductModel model = SearchableService.super.findById(productId);
 
         this.atachUrls(model);
 
@@ -109,13 +106,16 @@ public class ProductService implements
 
     }
 
+    @Override
     @Transactional
     public List<ProductModel> findAll() {
 
-        List<ProductModel> products = this.repository.findAll();
+        List<ProductModel> products = SearchableService.super.findAll();
+
         products.forEach(
                 p -> this.atachUrls(p)
         );
+
         return products;
 
     }
