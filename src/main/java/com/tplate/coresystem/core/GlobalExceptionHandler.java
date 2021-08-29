@@ -3,6 +3,7 @@ package com.tplate.coresystem.core;
 import com.tplate.coresystem.core.dtos.ErrorDetailDto;
 import com.tplate.coresystem.core.dtos.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @ResponseBody
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @Value("${spring.servlet.multipart.max-file-size}")
+    private String MAX_SIZE_MULTIPART_FILE;
 
     // Business Runtime Exceptions
     @ExceptionHandler({
@@ -89,7 +93,7 @@ public class GlobalExceptionHandler {
     public ResponseDto handleMaxSizeException(MaxUploadSizeExceededException e, WebRequest request) {
         log.error(e.getMessage());
         return ResponseDto.builder()
-                .message("File too large.")
+                .message("File too large. Max size %s".formatted(MAX_SIZE_MULTIPART_FILE))
                 .data(ErrorDetailDto.buildWithRequest(request))
                 .build();
     }

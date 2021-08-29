@@ -1,5 +1,6 @@
 package com.tplate.coresystem.catalog.product;
 
+import com.tplate.coresystem.catalog.brand.BrandModel;
 import com.tplate.coresystem.catalog.brand.BrandRepository;
 import com.tplate.coresystem.catalog.product.image.ImageService;
 import com.tplate.coresystem.core.BusinessException;
@@ -88,20 +89,22 @@ public class ProductService implements
         model.setDescription(dto.getDescription());
         model.setPrice(dto.getPrice());
         model.setStock(dto.getStock());
-        model.setBrand(this.brandRepository.findById(dto.getBrandId()).orElse(null));
+
+        if (dto.getBrandId() != null) {
+            model.setBrand(this.brandRepository.findById(dto.getBrandId()).get());
+        } else {
+            model.setBrand(null);
+        }
 
         return model;
 
     }
 
+    @Override
     @Transactional
     public ProductModel findById(Long productId) {
 
-        ProductModel model = this.repository
-                .findById(productId)
-                .orElseThrow(
-                        () -> new BusinessException("Product id %s not exist.".formatted(productId))
-                );
+        ProductModel model = SearchableService.super.findById(productId);
 
         this.atachUrls(model);
 
@@ -109,13 +112,16 @@ public class ProductService implements
 
     }
 
+    @Override
     @Transactional
     public List<ProductModel> findAll() {
 
-        List<ProductModel> products = this.repository.findAll();
+        List<ProductModel> products = SearchableService.super.findAll();
+
         products.forEach(
                 p -> this.atachUrls(p)
         );
+
         return products;
 
     }
