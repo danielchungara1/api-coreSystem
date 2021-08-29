@@ -6,14 +6,21 @@ import com.tplate.coresystem.catalog.product.ProductService;
 import com.tplate.coresystem.core.BusinessException;
 import com.tplate.coresystem.core.services.DeletableService;
 import com.tplate.coresystem.core.services.SearchableService;
+import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.tasks.io.InputStreamImageSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MimeType;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.Date;
 import java.util.List;
 
@@ -66,6 +73,7 @@ public class ImageService implements
 
         model = this.repository.save(model);
         model.setUrl(this.getUrl(productId, model.getId()));
+
         return model;
 
     }
@@ -126,6 +134,29 @@ public class ImageService implements
     }
 
     /**
+     * Search image and transform it into thumbnail.
+     *
+     * @param productId
+     * @param imageId
+     * @return thumbnail of original image.
+     * @throws IOException
+     */
+    @Transactional
+    public ImageModel findThumbnail(Long productId, Long imageId) throws IOException {
+
+        ImageModel model = this.findImage(productId, imageId);
+
+        byte[] thumbnail = this.buildThumbnail(model.getData(), model.getType());
+
+        model.setData(thumbnail);
+        model.setUrl(model.getUrl() + "/thumbnail");
+
+        return model;
+
+    }
+
+
+    /**
      * Build image url from product id and image id
      *
      * @param productId
@@ -155,6 +186,33 @@ public class ImageService implements
                 .type(file.getContentType())
                 .main(isMain)
                 .build();
+    }
+
+    private byte[] buildThumbnail(byte[] bytes, String contentType) throws IOException {
+
+        BufferedImage bufferedImage = new InputStreamImageSource(new ByteArrayInputStream(bytes)).read();
+
+        return this.getByArrayBufferImage(
+                Thumbnailator.createThumbnail(bufferedImage, 250, 250),
+                contentType
+        );
+
+    }
+
+    private byte[] getByArrayBufferImage(BufferedImage buffer, String contentType) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        if (contentType.equals(MimeTypeUtils.IMAGE_JPEG_VALUE) || contentType.equals(MimeTypeUtils.IMAGE_PNG_VALUE)) {
+            ImageIO.write(buffer, "png", baos);
+        } else {
+            throw new BusinessException("Invalid image format.");
+        }
+
+        baos.flush();
+        byte[] imageInByte = baos.toByteArray(); // you have the data in byte array
+        baos.close();
+        return imageInByte;
+
     }
 
 

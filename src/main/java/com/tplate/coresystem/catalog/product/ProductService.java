@@ -1,5 +1,6 @@
 package com.tplate.coresystem.catalog.product;
 
+import com.tplate.coresystem.catalog.brand.BrandModel;
 import com.tplate.coresystem.catalog.brand.BrandRepository;
 import com.tplate.coresystem.catalog.product.image.ImageService;
 import com.tplate.coresystem.core.BusinessException;
@@ -88,7 +89,12 @@ public class ProductService implements
         model.setDescription(dto.getDescription());
         model.setPrice(dto.getPrice());
         model.setStock(dto.getStock());
-        model.setBrand(this.brandRepository.findById(dto.getBrandId()).orElse(null));
+
+        if (dto.getBrandId() != null) {
+            model.setBrand(this.brandRepository.findById(dto.getBrandId()).get());
+        } else {
+            model.setBrand(null);
+        }
 
         return model;
 

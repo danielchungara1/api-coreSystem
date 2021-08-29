@@ -94,6 +94,17 @@ public class ImageController {
 
     }
 
+    @GetMapping("/{id}/images/{imageId}/thumbnail")
+    public ResponseEntity<byte[]> findThumbnail(@PathVariable Long id, @PathVariable Long imageId) throws IOException {
+
+        ImageModel model = this.service.findThumbnail(id, imageId);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "atachment; filename=\"" + model.getName() + "\"")
+                .body(model.getData());
+
+    }
+
     @GetMapping("/{id}/images")
     public ResponseDto getImages(@PathVariable Long id) {
 

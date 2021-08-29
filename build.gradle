@@ -63,6 +63,10 @@ dependencies {
 	// Guava
 	implementation group: 'com.google.guava', name: 'guava', version: '30.1.1-jre'
 
+	// Thumbnails
+	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.14'
+
+
 }
 
 tasks.named('test', Test) {
