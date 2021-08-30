@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.transaction.Transactional;
+
 public interface UpdatableController<
         S extends UpdatableService<R, E, I>,
         R extends JpaRepository<E, Long>,
@@ -26,6 +28,7 @@ public interface UpdatableController<
 
 
     @PutMapping("/{id}")
+    @Transactional
     default public ResponseDto updateByDtoAndId(@RequestBody I dto, @PathVariable Long id) {
 
         E model = this.getService().updateByDtoAndIdUsingTemplateMethod(dto, id);
