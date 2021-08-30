@@ -10,8 +10,11 @@ import com.tplate.coresystem.core.dtos.ResponseDto;
 import com.tplate.coresystem.core.dtos.ResponsePageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
@@ -63,7 +66,10 @@ public class ProductController implements
 
     @GetMapping("/page")
     @Transactional
-    public ResponseDto findAll(Pageable pageable, ProductSpecification specification) {
+    public ResponseDto findAll(
+            @PageableDefault(sort = {"description"}, direction = Sort.Direction.ASC)
+                    Pageable pageable,
+            ProductSpecification specification) {
 
         final Object model = this.getService().findAll(pageable, specification);
 
